@@ -1,0 +1,64 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MobileShell } from "@/components/vela/MobileShell";
+import { ConstellationStars } from "@/components/vela/Decoratives";
+
+const lines = [
+  "Reading your vision, Sofia...",
+  "Finding your words...",
+  "Crafting your affirmations...",
+];
+
+const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }) => {
+  const navigate = useNavigate();
+  const [activeLine, setActiveLine] = useState(0);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setActiveLine(1), 2000);
+    const t2 = setTimeout(() => setActiveLine(2), 4000);
+    const t3 = setTimeout(() => navigate("/affirmations"), 5500);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, [navigate]);
+
+  return (
+    <MobileShell className="bg-vela-dark">
+      {/* Aurora glow */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="animate-aurora-pulse" style={{
+          width: 280, height: 280, borderRadius: '50%',
+          background: 'radial-gradient(circle, hsla(0,31%,74%,0.25), hsla(34,62%,76%,0.12), transparent 70%)',
+        }} />
+      </div>
+
+      <ConstellationStars className="absolute top-12 right-6 w-14 h-14 text-accent/[0.14]" />
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+        {/* Breathing circle */}
+        <div className="w-20 h-20 rounded-full border-[1.5px] border-accent/40 animate-breathe flex items-center justify-center mb-10">
+          <div className="w-3 h-3 rounded-full bg-accent/30" />
+        </div>
+
+        {/* Copy sequence */}
+        <div className="flex flex-col items-center gap-3">
+          {lines.map((line, i) => (
+            <p
+              key={i}
+              className={`font-body font-light text-base text-primary-foreground/80 text-center transition-all duration-600 ease-out ${
+                i <= activeLine ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+              } ${i < activeLine ? 'opacity-40' : ''}`}
+            >
+              {i === 0 ? line.replace("Sofia", userName) : line}
+            </p>
+          ))}
+        </div>
+      </div>
+
+      {/* Progress line */}
+      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-foreground/5">
+        <div className="h-full bg-gradient-to-r from-vela-dusty-rose to-vela-amber animate-progress-fill" />
+      </div>
+    </MobileShell>
+  );
+};
+
+export default GenerationLoadingScreen;
