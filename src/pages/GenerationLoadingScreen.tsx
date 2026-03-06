@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { ConstellationStars } from "@/components/vela/Decoratives";
+import { ConstellationStars, DarkBlob } from "@/components/vela/Decoratives";
 
 const lines = [
   "Reading your vision, Sofia...",
@@ -22,17 +22,30 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName = "
 
   return (
     <MobileShell className="bg-vela-dark">
-      {/* Aurora glow */}
+      <DarkBlob />
+
+      {/* Multi-rate gradient blobs */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="animate-aurora-pulse" style={{
+        <div className="absolute animate-blob-slow" style={{
           width: 280, height: 280, borderRadius: '50%',
-          background: 'radial-gradient(circle, hsla(0,31%,74%,0.25), hsla(34,62%,76%,0.12), transparent 70%)',
+          background: 'radial-gradient(circle, hsla(0,31%,74%,0.25), transparent 70%)',
+          top: '25%', left: '10%',
+        }} />
+        <div className="absolute animate-blob-mid" style={{
+          width: 220, height: 220, borderRadius: '50%',
+          background: 'radial-gradient(circle, hsla(34,62%,76%,0.18), transparent 70%)',
+          top: '35%', right: '5%',
+        }} />
+        <div className="absolute animate-blob-long" style={{
+          width: 200, height: 200, borderRadius: '50%',
+          background: 'radial-gradient(circle, hsla(340,42%,38%,0.15), transparent 70%)',
+          bottom: '25%', left: '20%',
         }} />
       </div>
 
-      <ConstellationStars className="absolute top-12 right-6 w-14 h-14 text-accent/[0.14]" />
+      <ConstellationStars className="absolute top-12 right-6 w-14 h-14 text-accent/[0.35]" />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-6 z-10">
         {/* Breathing circle */}
         <div className="w-20 h-20 rounded-full border-[1.5px] border-accent/40 animate-breathe flex items-center justify-center mb-10">
           <div className="w-3 h-3 rounded-full bg-accent/30" />
@@ -43,9 +56,12 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName = "
           {lines.map((line, i) => (
             <p
               key={i}
-              className={`font-body font-light text-base text-primary-foreground/80 text-center transition-all duration-600 ease-out ${
-                i <= activeLine ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-              } ${i < activeLine ? 'opacity-40' : ''}`}
+              className="font-body font-light text-base text-primary-foreground/80 text-center"
+              style={{
+                transition: 'all 600ms cubic-bezier(0.22, 1, 0.36, 1)',
+                opacity: i <= activeLine ? (i < activeLine ? 0.4 : 1) : 0,
+                transform: i <= activeLine ? 'translateY(0)' : 'translateY(8px)',
+              }}
             >
               {i === 0 ? line.replace("Sofia", userName) : line}
             </p>

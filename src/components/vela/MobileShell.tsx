@@ -6,11 +6,24 @@ interface MobileShellProps {
   className?: string;
 }
 
-export const MobileShell: React.FC<MobileShellProps> = ({ children, className }) => (
-  <div className={`max-w-[375px] mx-auto min-h-screen relative overflow-hidden ${className || ''}`}>
-    {children}
-  </div>
-);
+export const MobileShell: React.FC<MobileShellProps> = ({ children, className }) => {
+  const isDark = className?.includes('bg-vela-dark');
+  return (
+    <div className={`max-w-[375px] mx-auto min-h-screen relative overflow-hidden ${className || ''}`}>
+      {/* Noise texture on light screens */}
+      {!isDark && (
+        <div
+          className="absolute inset-0 pointer-events-none z-[2]"
+          style={{
+            opacity: 0.035,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='a' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E")`,
+          }}
+        />
+      )}
+      {children}
+    </div>
+  );
+};
 
 interface BottomNavProps {
   active: "home" | "tracks" | "wins" | "settings";
@@ -31,10 +44,10 @@ export const BottomNav: React.FC<BottomNavProps> = ({ active }) => {
         <button
           key={tab.id}
           onClick={() => navigate(tab.path)}
-          className="flex flex-col items-center gap-1 active-press"
+          className="flex flex-col items-center gap-1 active-press transition-all duration-200 ease-out"
         >
-          <tab.icon className={`w-6 h-6 ${active === tab.id ? 'text-primary' : 'text-foreground/35'}`} filled={active === tab.id} />
-          <span className={`text-[10px] font-body ${active === tab.id ? 'text-primary' : 'text-foreground/35'}`}>{tab.label}</span>
+          <tab.icon className={`w-6 h-6 transition-colors duration-200 ease-out ${active === tab.id ? 'text-primary' : 'text-foreground/35'}`} filled={active === tab.id} />
+          <span className={`text-[10px] font-body transition-colors duration-200 ease-out ${active === tab.id ? 'text-primary' : 'text-foreground/35'}`}>{tab.label}</span>
         </button>
       ))}
     </div>
