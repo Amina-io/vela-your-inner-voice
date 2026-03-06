@@ -29,8 +29,8 @@ const ChooseTrackScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia"
 
   return (
     <MobileShell className="bg-background bg-ambient">
-      <div className="flex flex-col min-h-screen px-6 py-12">
-        <h2 className="font-display text-[30px] text-foreground text-center">Choose your frequency, {userName}.</h2>
+      <div className="flex flex-col min-h-screen px-6 py-12 screen-enter relative z-10">
+        <h2 className="font-script text-[32px] text-foreground text-center">Choose your frequency, {userName}.</h2>
         <p className="font-body font-light text-sm text-foreground/55 text-center mt-2 max-w-[300px] mx-auto">
           Each track is tuned to a specific Hz frequency. Pick the one that calls to you.
         </p>
@@ -43,9 +43,10 @@ const ChooseTrackScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia"
               <button
                 key={i}
                 onClick={() => { setSelected(i); togglePreview(i); }}
-                className={`glass-card p-5 flex items-center gap-4 transition-all duration-200 active:scale-[0.98] ${
+                className={`glass-card p-5 flex items-center gap-4 active:scale-[0.98] ${
                   isSelected ? 'border-[1.5px] border-primary bg-primary/[0.05]' : ''
                 }`}
+                style={{ transition: 'all 200ms ease-out' }}
               >
                 <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
                   {isSelected ? (
@@ -60,7 +61,7 @@ const ChooseTrackScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia"
                 </div>
                 <div className="flex-1 text-left">
                   <div className="flex items-center gap-2">
-                    <span className="font-body font-medium text-base text-foreground">{track.name}</span>
+                    <span className="font-body font-normal text-base text-foreground">{track.name}</span>
                     <span className="font-body text-xs text-muted-foreground">{track.hz}</span>
                   </div>
                   {isPreviewing ? (

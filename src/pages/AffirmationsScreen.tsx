@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { BotanicalSprig } from "@/components/vela/Decoratives";
+import { BotanicalSprig, AmbientBlobs, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const defaultAffirmations = [
@@ -28,7 +28,6 @@ const AffirmationsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia
 
   const saveEdit = () => {
     if (editingIdx !== null) {
-      // Check for negative reframe trigger
       if (editText.toLowerCase().includes("stop being broke") || editText.toLowerCase().includes("want to stop")) {
         setShowReframe(true);
         return;
@@ -52,14 +51,27 @@ const AffirmationsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia
 
   return (
     <MobileShell className="bg-background bg-ambient">
-      <div className="flex flex-col min-h-screen px-6 pt-12 pb-28">
-        <h2 className="font-display text-[32px] text-foreground text-center">{userName}, these are yours.</h2>
+      <AmbientBlobs />
+
+      {/* Gold star dots */}
+      <GoldStar className="absolute top-20 right-10 text-accent z-10" size={7} />
+      <GoldStar className="absolute top-48 left-6 text-accent z-10" size={6} />
+
+      <div className="flex flex-col min-h-screen px-6 pt-12 pb-28 screen-enter relative z-10">
+        <h2 className="font-script text-[34px] text-foreground text-center">{userName}, these are yours.</h2>
         <p className="font-body font-light text-[13px] text-foreground/50 text-center mt-2">5 affirmations crafted from your vision.</p>
 
         <div className="flex flex-col gap-3 mt-8">
           {affirmations.map((aff, i) => (
-            <div key={i} className="glass-card p-6 relative">
-              <BotanicalSprig className="absolute bottom-2 right-2 w-6 h-8 text-vela-dusty-rose/20" />
+            <div
+              key={i}
+              className="glass-card card-inner-dashed p-6 relative"
+              style={{
+                animation: `fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) ${i * 80}ms forwards`,
+                opacity: 0,
+              }}
+            >
+              <BotanicalSprig className="absolute bottom-2 right-2 w-6 h-8 text-vela-dusty-rose/[0.30]" />
 
               {editingIdx === i ? (
                 <div className="flex flex-col gap-3">
@@ -88,8 +100,8 @@ const AffirmationsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia
                 </div>
               ) : (
                 <>
-                  <p className="font-display text-[22px] text-foreground leading-[1.5] pr-6">{aff}</p>
-                  <button onClick={() => startEdit(i)} className="absolute top-4 right-4 text-foreground/30 active:text-foreground/60">
+                  <p className="font-display italic text-[22px] text-foreground leading-[1.5] pr-6">{aff}</p>
+                  <button onClick={() => startEdit(i)} className="absolute top-4 right-4 text-foreground/30 active:text-foreground/60 transition-colors duration-200 ease-out">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
                     </svg>
@@ -101,18 +113,18 @@ const AffirmationsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia
         </div>
 
         {/* Add your own */}
-        <button onClick={() => setShowProSheet(true)} className="font-body text-sm text-primary flex items-center gap-1 justify-center mt-4 active:opacity-70">
+        <button onClick={() => setShowProSheet(true)} className="font-body text-sm text-primary flex items-center gap-1 justify-center mt-4 active:opacity-70 transition-opacity duration-200 ease-out">
           <span>+</span> Add your own
         </button>
 
-        <button onClick={() => setShowProSheet(true)} className="font-body font-light text-xs text-muted-foreground border border-dashed border-border rounded-full px-4 py-2 mx-auto mt-2 active:opacity-70">
+        <button onClick={() => setShowProSheet(true)} className="font-body font-light text-xs text-muted-foreground border border-dashed border-border rounded-full px-4 py-2 mx-auto mt-2 active:opacity-70 transition-opacity duration-200 ease-out">
           + More affirmations (Pro)
         </button>
 
         {/* Pro bottom sheet */}
         {showProSheet && (
           <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={() => setShowProSheet(false)}>
-            <div className="absolute inset-0 bg-foreground/20" />
+            <div className="absolute inset-0 bg-foreground/20 transition-opacity duration-200 ease-out" />
             <div className="relative max-w-[375px] w-full glass-card rounded-b-none p-6 pb-10" onClick={e => e.stopPropagation()}>
               <p className="font-display text-xl text-foreground text-center">Unlock more affirmations</p>
               <p className="font-body font-light text-sm text-foreground/60 text-center mt-2">
@@ -128,7 +140,7 @@ const AffirmationsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia
       </div>
 
       {/* Sticky CTA */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[375px] p-6 pt-3 bg-gradient-to-t from-background via-background to-transparent">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[375px] p-6 pt-3 bg-gradient-to-t from-background via-background to-transparent z-20">
         <Button variant="vela-primary" onClick={() => navigate("/voice")}>
           These feel right → Now let's hear them in your voice
         </Button>

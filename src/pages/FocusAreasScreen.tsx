@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
+import { WavyUnderline } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const areas = [
@@ -22,8 +23,11 @@ const FocusAreasScreen: React.FC = () => {
 
   return (
     <MobileShell className="bg-background">
-      <div className="flex flex-col items-center min-h-screen px-6 py-12">
-        <span className="font-display text-[22px] tracking-[0.2em] text-foreground/50">VELA</span>
+      <div className="flex flex-col items-center min-h-screen px-6 py-12 screen-enter relative z-10">
+        <div className="flex flex-col items-center">
+          <span className="font-script text-[26px] text-foreground/50">VELA</span>
+          <WavyUnderline className="text-accent/40 mt-0.5" />
+        </div>
 
         <h2 className="font-display text-[28px] text-foreground text-center mt-10">
           What areas matter most right now?
@@ -39,11 +43,12 @@ const FocusAreasScreen: React.FC = () => {
               <button
                 key={area}
                 onClick={() => toggle(area)}
-                className={`rounded-full px-5 py-3 font-body text-sm transition-all duration-200 active:scale-[1.03] ${
+                className={`rounded-full px-5 py-3 font-body text-sm active:scale-[1.04] ${
                   isSelected
                     ? 'bg-primary text-primary-foreground shadow-md'
                     : 'bg-input text-foreground/70'
                 }`}
+                style={{ transition: 'background 180ms ease-out, transform 240ms ease-out, color 180ms ease-out, box-shadow 180ms ease-out' }}
               >
                 {area}
               </button>

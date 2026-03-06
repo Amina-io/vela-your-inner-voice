@@ -7,7 +7,7 @@ const SettingsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" })
 
   return (
     <MobileShell className="bg-background">
-      <div className="flex flex-col px-6 pt-12 pb-[100px]">
+      <div className="flex flex-col px-6 pt-12 pb-[100px] screen-enter relative z-10">
         <h1 className="font-display text-[28px] text-foreground">Settings</h1>
 
         {/* Account */}
@@ -28,7 +28,7 @@ const SettingsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" })
           <h3 className="font-body text-xs text-muted-foreground mb-3 uppercase tracking-wider">Subscription</h3>
           <p className="font-body font-light text-sm text-foreground">VELA Pro · 7-day free trial</p>
           <p className="font-body font-light text-xs text-muted-foreground mt-1">Renews Jan 1, 2025</p>
-          <button className="font-body text-xs text-primary mt-3 active:opacity-70">Manage</button>
+          <button className="font-body text-xs text-primary mt-3 active:opacity-70 transition-opacity duration-200 ease-out">Manage</button>
         </div>
 
         {/* Notifications */}
@@ -51,7 +51,7 @@ const SettingsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" })
         </div>
 
         {/* Delete account */}
-        <button className="font-body font-light text-[13px] text-primary/60 text-center mt-8 active:opacity-70">
+        <button className="font-body font-light text-[13px] text-primary/60 text-center mt-8 active:opacity-70 transition-opacity duration-200 ease-out">
           Delete account
         </button>
       </div>
@@ -70,9 +70,9 @@ const EditIcon = () => (
 const Toggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void }> = ({ checked, onChange }) => (
   <button
     onClick={() => onChange(!checked)}
-    className={`w-12 h-7 rounded-full relative transition-colors duration-200 ${checked ? 'bg-primary' : 'bg-border'}`}
+    className={`w-12 h-7 rounded-full relative transition-colors duration-200 ease-out ${checked ? 'bg-primary' : 'bg-border'}`}
   >
-    <div className={`w-5 h-5 rounded-full bg-primary-foreground absolute top-1 transition-transform duration-200 ${checked ? 'translate-x-6' : 'translate-x-1'}`} />
+    <div className={`w-5 h-5 rounded-full bg-primary-foreground absolute top-1 transition-transform duration-200 ease-out ${checked ? 'translate-x-6' : 'translate-x-1'}`} />
   </button>
 );
 

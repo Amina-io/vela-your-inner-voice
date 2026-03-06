@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { MandalaOutline, WaveformBars } from "@/components/vela/Decoratives";
+import { MandalaOutline, WaveformBars, DarkBlob } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const PreviewScreen: React.FC = () => {
@@ -12,7 +12,6 @@ const PreviewScreen: React.FC = () => {
   const intervalRef = useRef<number>();
 
   useEffect(() => {
-    // Auto-start after 1s
     const t = setTimeout(() => setPlaying(true), 1000);
     return () => clearTimeout(t);
   }, []);
@@ -42,12 +41,14 @@ const PreviewScreen: React.FC = () => {
 
   return (
     <MobileShell className="bg-vela-dark">
+      <DarkBlob />
+
       {/* Mandala */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <MandalaOutline className="w-64 h-64 text-accent/[0.08] animate-slow-rotate" />
       </div>
 
-      <div className="flex flex-col items-center justify-center min-h-screen px-6">
+      <div className="flex flex-col items-center justify-center min-h-screen px-6 z-10 relative">
         <span className="font-body font-light text-sm text-primary-foreground/60 tracking-wider">Your subliminal is ready.</span>
         <span className="font-display text-xl text-primary-foreground/80 mt-2">Golden Hour · 528Hz</span>
 
@@ -55,7 +56,8 @@ const PreviewScreen: React.FC = () => {
           <WaveformBars animated={playing} count={32} className="h-10" />
         </div>
 
-        <button onClick={togglePlay} className="w-[72px] h-[72px] rounded-full bg-primary-foreground/10 backdrop-blur-sm flex items-center justify-center mt-8 active:scale-[0.97] transition-transform border border-primary-foreground/10">
+        {/* Player button — keeps glass blur as exception */}
+        <button onClick={togglePlay} className="w-[72px] h-[72px] rounded-full bg-primary-foreground/10 backdrop-blur-sm flex items-center justify-center mt-8 active:scale-[0.97] transition-transform duration-200 ease-out border border-primary-foreground/10">
           {playing ? (
             <svg width="28" height="28" viewBox="0 0 24 24" fill="hsl(var(--primary))" stroke="none">
               <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>

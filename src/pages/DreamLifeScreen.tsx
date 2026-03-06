@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { BotanicalSprig } from "@/components/vela/Decoratives";
+import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const promptChips = [
@@ -39,9 +39,10 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
 
   return (
     <MobileShell className="bg-background">
-      <BotanicalSprig className="absolute bottom-20 left-4 w-14 h-20 text-vela-dusty-rose/[0.12]" />
+      <AmbientBlobs />
+      <BotanicalSprig className="absolute bottom-20 left-4 w-14 h-20 text-vela-dusty-rose/[0.35]" />
 
-      <div className="flex flex-col min-h-screen px-6 py-12">
+      <div className="flex flex-col min-h-screen px-6 py-12 screen-enter relative z-10">
         {/* Progress dots */}
         <div className="flex gap-2 justify-center">
           <div className="w-2 h-2 rounded-full bg-border" />
@@ -49,7 +50,7 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
           <div className="w-2 h-2 rounded-full bg-border" />
         </div>
 
-        <h2 className="font-display text-[22px] text-foreground text-center max-w-[320px] mx-auto leading-[1.65] mt-8">
+        <h2 className="font-display italic text-[22px] text-foreground text-center max-w-[320px] mx-auto leading-[1.65] mt-8">
           {userName}, close your eyes for a moment. It's one year from now and everything worked out. What does your life look like?
         </h2>
 
@@ -60,7 +61,7 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
               <button
                 key={chip}
                 onClick={() => appendChip(chip)}
-                className="font-body font-light text-xs text-foreground/60 bg-input rounded-full px-4 py-2 active:scale-[0.97] transition-transform"
+                className="font-body font-light text-xs text-foreground/60 bg-input rounded-full px-4 py-2 active:scale-[0.97] transition-all duration-200 ease-out"
               >
                 {chip}
               </button>
@@ -76,7 +77,7 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
         />
 
         <div className="flex justify-end mt-2">
-          <span className={`font-body font-light text-xs ${isReady ? 'text-primary' : 'text-muted-foreground'}`}>
+          <span className={`font-body font-light text-xs transition-colors duration-200 ease-out ${isReady ? 'text-primary' : 'text-muted-foreground'}`}>
             {charCount} / 80 min
           </span>
         </div>
@@ -92,7 +93,7 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
                 <button
                   key={chip}
                   onClick={() => appendChip(chip)}
-                  className="font-body font-light text-xs text-foreground/60 bg-input rounded-full px-3 py-2 active:scale-[0.97] transition-transform"
+                  className="font-body font-light text-xs text-foreground/60 bg-input rounded-full px-3 py-2 active:scale-[0.97] transition-all duration-200 ease-out"
                 >
                   {chip}
                 </button>
@@ -105,7 +106,7 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
           <Button
             variant="vela-primary"
             onClick={handleCTA}
-            className={!isReady ? 'opacity-60' : 'opacity-100'}
+            className={`transition-all duration-[400ms] ease-out ${!isReady ? 'opacity-60' : 'opacity-100'}`}
           >
             These are my dreams →
           </Button>
