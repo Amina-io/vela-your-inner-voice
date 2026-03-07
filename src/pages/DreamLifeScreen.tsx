@@ -29,7 +29,7 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName: propName }
 
   const handleCTA = () => {
     if (isReady) {
-      navigate("/focus");
+      navigate("/focus", { state: { userName, dreamLife: text } });
     } else {
       setShowNudge(true);
     }

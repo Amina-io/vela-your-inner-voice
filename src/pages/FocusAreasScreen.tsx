@@ -59,7 +59,7 @@ const FocusAreasScreen: React.FC = () => {
         </div>
 
         <div className="mt-auto pt-8 w-full">
-          <Button variant="vela-primary" onClick={() => navigate("/generating")}>
+          <Button variant="vela-primary" onClick={() => navigate("/generating", { state: { userName, dreamLife, focusAreas: selected } })}>
             Build my affirmations
           </Button>
         </div>

@@ -19,7 +19,7 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: pr
   useEffect(() => {
     const t1 = setTimeout(() => setActiveLine(1), 2000);
     const t2 = setTimeout(() => setActiveLine(2), 4000);
-    const t3 = setTimeout(() => navigate("/affirmations"), 5500);
+    const t3 = setTimeout(() => navigate("/affirmations", { state: navState }), 5500);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [navigate]);
 
