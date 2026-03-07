@@ -173,6 +173,22 @@ const VoiceRecordingScreen: React.FC = () => {
       // Now generate audio
       setState("generating");
 
+      // Fetch affirmations from the database
+      const { data: affirmationSet, error: affError } = await supabase
+        .from("affirmation_sets")
+        .select("affirmations")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (affError || !affirmationSet) {
+        throw new Error("Could not load your affirmations. Please try again.");
+      }
+
+      const dbAffirmations = affirmationSet.affirmations as string[];
+      console.log("[Vela] Affirmations for TTS:", dbAffirmations);
+
       const genRes = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-audio`,
         {
@@ -184,7 +200,7 @@ const VoiceRecordingScreen: React.FC = () => {
           },
           body: JSON.stringify({
             voiceId: voice_id,
-            affirmations,
+            affirmations: dbAffirmations,
             userId,
           }),
         }
