@@ -94,7 +94,7 @@ Deno.serve(async (req) => {
       user_id: userId,
       elevenlabs_voice_id: voiceId,
       raw_recording_path: filePath,
-      clone_status: "completed",
+      clone_status: "ready",
     }, { onConflict: "user_id" });
 
     if (dbError) {
