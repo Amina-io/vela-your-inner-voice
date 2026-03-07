@@ -1,24 +1,71 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
-const defaultAffirmations = [
-  "I am someone whose mornings feel like mine.",
-  "I am financially free and growing.",
-  "I am deeply and completely loved.",
-  "I feel safe and at home in my own skin.",
-  "I create from a place of wholeness.",
-];
-
-const AffirmationsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }) => {
+const AffirmationsScreen: React.FC = () => {
   const navigate = useNavigate();
-  const [affirmations, setAffirmations] = useState(defaultAffirmations);
+  const location = useLocation();
+  const { userName = "Sofia", dreamLife = "", focusAreas = [] } = (location.state as any) || {};
+
+  const [affirmations, setAffirmations] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [editingIdx, setEditingIdx] = useState<number | null>(null);
   const [editText, setEditText] = useState("");
   const [showReframe, setShowReframe] = useState(false);
   const [showProSheet, setShowProSheet] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  const fetchAffirmations = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data, error: fnError } = await supabase.functions.invoke("generate-affirmations", {
+        body: { dreamLife, focusAreas, userName },
+      });
+      if (fnError) throw fnError;
+      const affs: string[] = data?.affirmations;
+      if (!affs || !Array.isArray(affs) || affs.length === 0) {
+        throw new Error("No affirmations returned");
+      }
+      setAffirmations(affs);
+    } catch (err: any) {
+      console.error("[Vela] generate-affirmations error:", err);
+      setError(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Save to DB once we have affirmations
+  useEffect(() => {
+    if (affirmations.length > 0 && !saved) {
+      const saveToDb = async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+        const { error: insertErr } = await supabase.from("affirmation_sets").insert({
+          user_id: session.user.id,
+          dream_life_description: dreamLife,
+          focus_areas: focusAreas,
+          affirmations: affirmations as any,
+        });
+        if (insertErr) {
+          console.error("[Vela] Failed to save affirmations:", insertErr);
+        } else {
+          console.log("[Vela] Affirmations saved to DB");
+          setSaved(true);
+        }
+      };
+      saveToDb();
+    }
+  }, [affirmations, saved, dreamLife, focusAreas]);
+
+  useEffect(() => {
+    fetchAffirmations();
+  }, []);
 
   const startEdit = (idx: number) => {
     setEditingIdx(idx);
@@ -48,6 +95,35 @@ const AffirmationsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia
       setShowReframe(false);
     }
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <MobileShell className="bg-background bg-ambient">
+        <AmbientBlobs />
+        <div className="flex flex-col items-center justify-center min-h-screen px-6 relative z-10">
+          <div className="w-12 h-12 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+          <p className="font-body font-light text-sm text-foreground/50 mt-6">Crafting your affirmations…</p>
+        </div>
+      </MobileShell>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <MobileShell className="bg-background bg-ambient">
+        <AmbientBlobs />
+        <div className="flex flex-col items-center justify-center min-h-screen px-6 relative z-10 gap-4">
+          <p className="font-display text-xl text-foreground text-center">Something went wrong</p>
+          <p className="font-body font-light text-sm text-foreground/50 text-center">{error}</p>
+          <Button variant="vela-primary" onClick={fetchAffirmations} className="mt-4 max-w-[200px]">
+            Try again
+          </Button>
+        </div>
+      </MobileShell>
+    );
+  }
 
   return (
     <MobileShell className="bg-background bg-ambient">

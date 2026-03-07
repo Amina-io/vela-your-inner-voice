@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,8 @@ const areas = [
 
 const FocusAreasScreen: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { userName, dreamLife } = (location.state as any) || {};
   const [selected, setSelected] = useState<string[]>([]);
 
   const toggle = (area: string) => {
@@ -57,7 +59,7 @@ const FocusAreasScreen: React.FC = () => {
         </div>
 
         <div className="mt-auto pt-8 w-full">
-          <Button variant="vela-primary" onClick={() => navigate("/generating")}>
+          <Button variant="vela-primary" onClick={() => navigate("/generating", { state: { userName, dreamLife, focusAreas: selected } })}>
             Build my affirmations
           </Button>
         </div>

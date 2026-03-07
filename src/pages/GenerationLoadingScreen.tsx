@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { ConstellationStars, DarkBlob } from "@/components/vela/Decoratives";
 
@@ -9,14 +9,17 @@ const lines = [
   "Crafting your affirmations...",
 ];
 
-const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }) => {
+const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: propName }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const navState = (location.state as any) || {};
+  const userName = propName || navState.userName || "Sofia";
   const [activeLine, setActiveLine] = useState(0);
 
   useEffect(() => {
     const t1 = setTimeout(() => setActiveLine(1), 2000);
     const t2 = setTimeout(() => setActiveLine(2), 4000);
-    const t3 = setTimeout(() => navigate("/affirmations"), 5500);
+    const t3 = setTimeout(() => navigate("/affirmations", { state: navState }), 5500);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [navigate]);
 

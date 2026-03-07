@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
@@ -17,8 +17,10 @@ const nudgeChips = [
   "I am deeply loved.",
 ];
 
-const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }) => {
+const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName: propName }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const userName = propName || (location.state as any)?.userName || "Sofia";
   const [text, setText] = useState("");
   const [showNudge, setShowNudge] = useState(false);
 
@@ -27,7 +29,7 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
 
   const handleCTA = () => {
     if (isReady) {
-      navigate("/focus");
+      navigate("/focus", { state: { userName, dreamLife: text } });
     } else {
       setShowNudge(true);
     }

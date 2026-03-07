@@ -15,7 +15,7 @@ const NameScreen: React.FC<NameScreenProps> = ({ onNameSet }) => {
   const handleContinue = () => {
     if (name.trim()) {
       onNameSet?.(name.trim());
-      navigate("/dream");
+      navigate("/dream", { state: { userName: name.trim() } });
     }
   };
 
