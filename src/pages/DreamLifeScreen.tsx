@@ -17,8 +17,10 @@ const nudgeChips = [
   "I am deeply loved.",
 ];
 
-const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }) => {
+const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName: propName }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const userName = propName || (location.state as any)?.userName || "Sofia";
   const [text, setText] = useState("");
   const [showNudge, setShowNudge] = useState(false);
 
