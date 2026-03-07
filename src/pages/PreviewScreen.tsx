@@ -43,7 +43,6 @@ const PreviewScreen: React.FC = () => {
     <MobileShell className="bg-vela-dark">
       <DarkBlob />
 
-      {/* Mandala */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <MandalaOutline className="w-64 h-64 text-accent/[0.08] animate-slow-rotate" />
       </div>
@@ -56,8 +55,7 @@ const PreviewScreen: React.FC = () => {
           <WaveformBars animated={playing} count={32} className="h-10" />
         </div>
 
-        {/* Player button — keeps glass blur as exception */}
-        <button onClick={togglePlay} className="w-[72px] h-[72px] rounded-full bg-primary-foreground/10 backdrop-blur-sm flex items-center justify-center mt-8 active:scale-[0.97] transition-transform duration-200 ease-out border border-primary-foreground/10">
+        <button onClick={togglePlay} className="w-[72px] h-[72px] rounded-full bg-primary-foreground/10 backdrop-blur-sm flex items-center justify-center mt-8 border border-primary-foreground/10" style={{ transition: 'transform 150ms ease-out' }}>
           {playing ? (
             <svg width="28" height="28" viewBox="0 0 24 24" fill="hsl(var(--primary))" stroke="none">
               <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
@@ -71,7 +69,6 @@ const PreviewScreen: React.FC = () => {
 
         <span className="font-body font-light text-xs text-primary-foreground/50 mt-4">{formatTime(seconds)} / 0:14</span>
 
-        {/* Post-playback CTA */}
         {finished && (
           <div className="absolute bottom-12 left-0 right-0 px-6 animate-slide-up flex flex-col items-center gap-2">
             <Button variant="vela-primary" className="w-full" onClick={() => navigate("/subscribe")}>

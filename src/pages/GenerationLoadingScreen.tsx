@@ -58,7 +58,7 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName = "
               key={i}
               className="font-body font-light text-base text-primary-foreground/80 text-center"
               style={{
-                transition: 'all 600ms cubic-bezier(0.22, 1, 0.36, 1)',
+                transition: 'opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 600ms cubic-bezier(0.16, 1, 0.3, 1)',
                 opacity: i <= activeLine ? (i < activeLine ? 0.4 : 1) : 0,
                 transform: i <= activeLine ? 'translateY(0)' : 'translateY(8px)',
               }}

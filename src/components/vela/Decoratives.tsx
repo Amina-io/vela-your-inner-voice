@@ -58,25 +58,34 @@ export const WaveformBars: React.FC<{ className?: string; animated?: boolean; co
   </div>
 );
 
-/* === NEW DECORATIVE ELEMENTS === */
-
 export const GoldStar: React.FC<{ className?: string; size?: number }> = ({ className, size = 8 }) => (
   <svg className={className} width={size} height={size} viewBox="0 0 10 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path d="M5 0L6.12 3.53L10 3.82L7.06 6.47L7.94 10L5 7.9L2.06 10L2.94 6.47L0 3.82L3.88 3.53L5 0Z"/>
   </svg>
 );
 
-export const WavyUnderline: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} width="40" height="6" viewBox="0 0 40 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 3C5 0.5 10 5.5 15 3C20 0.5 25 5.5 30 3C35 0.5 37 4 40 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-  </svg>
-);
-
 export const AmbientBlobs: React.FC = () => (
   <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-    <div className="absolute -top-20 -left-20 w-[300px] h-[300px] rounded-full" style={{ background: 'hsla(0, 31%, 74%, 0.18)', filter: 'blur(80px)' }} />
-    <div className="absolute -bottom-20 -right-20 w-[280px] h-[280px] rounded-full" style={{ background: 'hsla(34, 62%, 76%, 0.14)', filter: 'blur(80px)' }} />
-    <div className="absolute top-1/3 right-1/4 w-[200px] h-[200px] rounded-full" style={{ background: 'hsla(105, 14%, 67%, 0.10)', filter: 'blur(80px)' }} />
+    <div
+      className="absolute animate-blob-drift-1"
+      style={{
+        top: '-40px',
+        right: '-60px',
+        width: 280,
+        height: 200,
+        background: 'radial-gradient(ellipse, rgba(212, 165, 165, 0.22) 0%, transparent 70%)',
+      }}
+    />
+    <div
+      className="absolute animate-blob-drift-2"
+      style={{
+        bottom: '-40px',
+        left: '-50px',
+        width: 240,
+        height: 180,
+        background: 'radial-gradient(ellipse, rgba(232, 201, 154, 0.16) 0%, transparent 70%)',
+      }}
+    />
   </div>
 );
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { BotanicalSprig, WavyUnderline } from "@/components/vela/Decoratives";
+import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 interface NameScreenProps {
@@ -21,12 +21,12 @@ const NameScreen: React.FC<NameScreenProps> = ({ onNameSet }) => {
 
   return (
     <MobileShell className="bg-background">
+      <AmbientBlobs />
       <BotanicalSprig className="absolute bottom-20 left-4 w-14 h-20 text-vela-dusty-rose/[0.35]" />
 
       <div className="flex flex-col items-center min-h-screen px-6 py-12 screen-enter relative z-10">
         <div className="flex flex-col items-center">
-          <span className="font-script text-[26px] text-foreground/50">VELA</span>
-          <WavyUnderline className="text-accent/40 mt-0.5" />
+          <span className="font-wordmark text-[22px] text-foreground/50">VELA</span>
         </div>
 
         {/* Progress dots */}
@@ -37,7 +37,7 @@ const NameScreen: React.FC<NameScreenProps> = ({ onNameSet }) => {
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center gap-4 -mt-16">
-          <h2 className="font-script text-[32px] text-foreground text-center">What should we call you?</h2>
+          <h2 className="font-handwritten text-[36px] text-foreground text-center">What should we call you?</h2>
           <p className="font-body font-light text-sm text-foreground/55 text-center">We'll use this throughout your journey.</p>
 
           <input
@@ -53,7 +53,7 @@ const NameScreen: React.FC<NameScreenProps> = ({ onNameSet }) => {
           variant="vela-primary"
           disabled={!name.trim()}
           onClick={handleContinue}
-          className="transition-all duration-[400ms] ease-out"
+          style={{ transition: 'opacity 500ms ease-out, background-color 500ms ease-out' }}
         >
           Continue
         </Button>

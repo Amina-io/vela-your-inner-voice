@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 interface MobileShellProps {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export const MobileShell: React.FC<MobileShellProps> = ({ children, className }) => {
+export const MobileShell: React.FC<MobileShellProps> = ({ children, className, style }) => {
   const isDark = className?.includes('bg-vela-dark');
   return (
-    <div className={`max-w-[375px] mx-auto min-h-screen relative overflow-hidden ${className || ''}`}>
+    <div className={`max-w-[375px] mx-auto min-h-screen relative overflow-hidden ${className || ''}`} style={style}>
       {/* Noise texture on light screens */}
       {!isDark && (
         <div
@@ -44,36 +45,37 @@ export const BottomNav: React.FC<BottomNavProps> = ({ active }) => {
         <button
           key={tab.id}
           onClick={() => navigate(tab.path)}
-          className="flex flex-col items-center gap-1 active-press transition-all duration-200 ease-out"
+          className="flex flex-col items-center gap-1 active-press"
+          style={{ transition: 'transform 150ms ease-out' }}
         >
-          <tab.icon className={`w-6 h-6 transition-colors duration-200 ease-out ${active === tab.id ? 'text-primary' : 'text-foreground/35'}`} filled={active === tab.id} />
-          <span className={`text-[10px] font-body transition-colors duration-200 ease-out ${active === tab.id ? 'text-primary' : 'text-foreground/35'}`}>{tab.label}</span>
+          <tab.icon className={`w-6 h-6 ${active === tab.id ? 'text-primary' : 'text-foreground/35'}`} filled={active === tab.id} style={{ transition: 'color 200ms ease-out' }} />
+          <span className={`text-[10px] font-body ${active === tab.id ? 'text-primary' : 'text-foreground/35'}`} style={{ transition: 'color 200ms ease-out' }}>{tab.label}</span>
         </button>
       ))}
     </div>
   );
 };
 
-const HomeIcon: React.FC<{ className?: string; filled?: boolean }> = ({ className, filled }) => (
-  <svg className={className} viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+const HomeIcon: React.FC<{ className?: string; filled?: boolean; style?: React.CSSProperties }> = ({ className, filled, style }) => (
+  <svg className={className} style={style} viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M3 12L12 3L21 12V21H15V15H9V21H3V12Z"/>
   </svg>
 );
 
-const WaveIcon: React.FC<{ className?: string; filled?: boolean }> = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+const WaveIcon: React.FC<{ className?: string; filled?: boolean; style?: React.CSSProperties }> = ({ className, style }) => (
+  <svg className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
     <path d="M4 12H4.5M7 8V16M10 6V18M13 9V15M16 7V17M19.5 12H20"/>
   </svg>
 );
 
-const StarIcon: React.FC<{ className?: string; filled?: boolean }> = ({ className, filled }) => (
-  <svg className={className} viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+const StarIcon: React.FC<{ className?: string; filled?: boolean; style?: React.CSSProperties }> = ({ className, filled, style }) => (
+  <svg className={className} style={style} viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 2L15 9L22 9.5L17 14.5L18.5 22L12 18L5.5 22L7 14.5L2 9.5L9 9L12 2Z"/>
   </svg>
 );
 
-const SlidersIcon: React.FC<{ className?: string; filled?: boolean }> = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+const SlidersIcon: React.FC<{ className?: string; filled?: boolean; style?: React.CSSProperties }> = ({ className, style }) => (
+  <svg className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
     <path d="M4 21V14M4 10V3M12 21V12M12 8V3M20 21V16M20 12V3M1 14H7M9 8H15M17 16H23"/>
   </svg>
 );

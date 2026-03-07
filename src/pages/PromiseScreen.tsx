@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { WavyUnderline } from "@/components/vela/Decoratives";
+import { AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const PromiseScreen: React.FC = () => {
@@ -9,11 +9,11 @@ const PromiseScreen: React.FC = () => {
 
   return (
     <MobileShell className="bg-background bg-ambient">
+      <AmbientBlobs />
       <div className="flex flex-col items-center justify-between min-h-screen px-6 py-12 screen-enter relative z-10">
         {/* VELA wordmark */}
         <div className="flex flex-col items-center">
-          <span className="font-script text-[26px] text-foreground/50">VELA</span>
-          <WavyUnderline className="text-accent/40 mt-0.5" />
+          <span className="font-wordmark text-[22px] text-foreground/50">VELA</span>
         </div>
 
         {/* Main copy */}
@@ -32,7 +32,7 @@ const PromiseScreen: React.FC = () => {
               <div
                 key={i}
                 className="glass-card flex-1 flex flex-col items-center gap-2 py-4 px-2"
-                style={{ animationDelay: `${300 + i * 100}ms`, animation: 'fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards', opacity: 0 }}
+                style={{ animationDelay: `${300 + i * 100}ms`, animation: 'fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards', opacity: 0 }}
               >
                 <span className="text-lg text-foreground/60">{step.icon}</span>
                 <span className="font-body font-light text-[13px] text-center text-foreground/70">{step.label}</span>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { WaveformBars } from "@/components/vela/Decoratives";
+import { WaveformBars, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const tracks = [
@@ -29,8 +29,9 @@ const ChooseTrackScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia"
 
   return (
     <MobileShell className="bg-background bg-ambient">
+      <AmbientBlobs />
       <div className="flex flex-col min-h-screen px-6 py-12 screen-enter relative z-10">
-        <h2 className="font-script text-[32px] text-foreground text-center">Choose your frequency, {userName}.</h2>
+        <h2 className="font-handwritten text-[36px] text-foreground text-center">Choose your frequency, {userName}.</h2>
         <p className="font-body font-light text-sm text-foreground/55 text-center mt-2 max-w-[300px] mx-auto">
           Each track is tuned to a specific Hz frequency. Pick the one that calls to you.
         </p>
@@ -43,10 +44,10 @@ const ChooseTrackScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia"
               <button
                 key={i}
                 onClick={() => { setSelected(i); togglePreview(i); }}
-                className={`glass-card p-5 flex items-center gap-4 active:scale-[0.98] ${
+                className={`glass-card p-5 flex items-center gap-4 ${
                   isSelected ? 'border-[1.5px] border-primary bg-primary/[0.05]' : ''
                 }`}
-                style={{ transition: 'all 200ms ease-out' }}
+                style={{ transition: 'border-color 200ms ease-out, background 200ms ease-out, transform 150ms ease-out' }}
               >
                 <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
                   {isSelected ? (

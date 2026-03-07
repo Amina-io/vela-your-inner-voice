@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { WaveformBars } from "@/components/vela/Decoratives";
+import { WaveformBars, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 type RecordingState = "pre" | "recording" | "post";
@@ -51,7 +51,8 @@ const VoiceRecordingScreen: React.FC<{ userName?: string }> = ({ userName = "Sof
   const isDark = state === "recording";
 
   return (
-    <MobileShell className={`transition-colors duration-[600ms] ${isDark ? 'bg-vela-dark' : 'bg-background'}`}>
+    <MobileShell className={`${isDark ? 'bg-vela-dark' : 'bg-background'}`} style={{ transition: 'background-color 600ms ease-out' }}>
+      {!isDark && <AmbientBlobs />}
       <div className="flex flex-col items-center min-h-screen px-6 py-12 relative z-10">
         {state === "pre" && (
           <div className="screen-enter">
@@ -71,7 +72,7 @@ const VoiceRecordingScreen: React.FC<{ userName?: string }> = ({ userName = "Sof
             </div>
 
             <div className="flex flex-col items-center">
-              <button onClick={startRecording} className="w-20 h-20 rounded-full bg-primary flex items-center justify-center mt-10 active:scale-[0.97] transition-transform duration-200 ease-out shadow-lg">
+              <button onClick={startRecording} className="w-20 h-20 rounded-full bg-primary flex items-center justify-center mt-10 shadow-lg" style={{ transition: 'transform 150ms ease-out' }}>
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary-foreground))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
                   <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
@@ -88,7 +89,7 @@ const VoiceRecordingScreen: React.FC<{ userName?: string }> = ({ userName = "Sof
           <div className="flex-1 flex flex-col items-center justify-center">
             <WaveformBars animated count={28} className="h-12 mb-10" />
 
-            <button onClick={stopRecording} className="w-20 h-20 rounded-full border-2 border-red-400 animate-breathe flex items-center justify-center active:scale-[0.97] transition-transform duration-200 ease-out">
+            <button onClick={stopRecording} className="w-20 h-20 rounded-full border-2 border-red-400 animate-breathe flex items-center justify-center" style={{ transition: 'transform 150ms ease-out' }}>
               <div className="w-8 h-8 rounded bg-red-400" />
             </button>
 
@@ -102,7 +103,7 @@ const VoiceRecordingScreen: React.FC<{ userName?: string }> = ({ userName = "Sof
             <h2 className="font-display text-[28px] text-foreground text-center">Beautiful.</h2>
 
             <div className="glass-card p-6 mt-8 w-full flex items-center gap-4">
-              <button className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center transition-colors duration-200 ease-out">
+              <button className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center" style={{ transition: 'color 200ms ease-out' }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="hsl(var(--primary))" stroke="none">
                   <polygon points="5 3 19 12 5 21 5 3"/>
                 </svg>

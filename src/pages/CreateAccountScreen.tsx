@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { BotanicalSprig, WavyUnderline } from "@/components/vela/Decoratives";
+import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const CreateAccountScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }) => {
@@ -24,15 +24,15 @@ const CreateAccountScreen: React.FC<{ userName?: string }> = ({ userName = "Sofi
 
   return (
     <MobileShell className="bg-background">
+      <AmbientBlobs />
       <BotanicalSprig className="absolute bottom-16 right-4 w-12 h-16 text-vela-dusty-rose/[0.35]" />
 
       <div className="flex flex-col items-center min-h-screen px-6 py-12 screen-enter relative z-10">
         <div className="flex flex-col items-center">
-          <span className="font-script text-[26px] text-foreground/50">VELA</span>
-          <WavyUnderline className="text-accent/40 mt-0.5" />
+          <span className="font-wordmark text-[22px] text-foreground/50">VELA</span>
         </div>
 
-        <h2 className="font-script text-[30px] text-foreground text-center mt-8 leading-tight">
+        <h2 className="font-handwritten text-[34px] text-foreground text-center mt-8 leading-tight">
           Let's save your affirmations and voice, {userName}.
         </h2>
         <p className="font-body font-light text-sm text-foreground/55 text-center mt-2">
@@ -51,14 +51,12 @@ const CreateAccountScreen: React.FC<{ userName?: string }> = ({ userName = "Sofi
           </Button>
         </div>
 
-        {/* Divider */}
         <div className="flex items-center gap-3 w-full my-6">
           <div className="flex-1 h-[1px] bg-border" />
           <span className="font-body font-light text-xs text-muted-foreground">or</span>
           <div className="flex-1 h-[1px] bg-border" />
         </div>
 
-        {/* Email/password */}
         <div className="flex flex-col gap-3 w-full">
           <div>
             <input
@@ -68,7 +66,7 @@ const CreateAccountScreen: React.FC<{ userName?: string }> = ({ userName = "Sofi
               placeholder="Email address"
               className="vela-input w-full text-base"
             />
-            {emailError && <p className="font-body font-light text-xs text-primary/80 mt-1 ml-1 transition-opacity duration-200 ease-out">{emailError}</p>}
+            {emailError && <p className="font-body font-light text-xs text-primary/80 mt-1 ml-1" style={{ transition: 'opacity 200ms ease-out' }}>{emailError}</p>}
           </div>
           <div className="relative">
             <input
@@ -80,7 +78,8 @@ const CreateAccountScreen: React.FC<{ userName?: string }> = ({ userName = "Sofi
             />
             <button
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40 transition-colors duration-200 ease-out"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40"
+              style={{ transition: 'color 200ms ease-out' }}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                 {showPassword ? (
@@ -103,7 +102,7 @@ const CreateAccountScreen: React.FC<{ userName?: string }> = ({ userName = "Sofi
           </Button>
         </div>
 
-        <button onClick={() => navigate("/choose-track")} className="font-body font-light text-[13px] text-primary text-center mt-4 transition-opacity duration-200 ease-out active:opacity-70">
+        <button onClick={() => navigate("/choose-track")} className="font-body font-light text-[13px] text-primary text-center mt-4 active:opacity-70" style={{ transition: 'opacity 200ms ease-out' }}>
           Already have an account? Sign in
         </button>
       </div>
