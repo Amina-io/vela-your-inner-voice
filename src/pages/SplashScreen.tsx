@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { CrescentMoon, DarkBlob, GoldStar, WavyUnderline } from "@/components/vela/Decoratives";
+import { CrescentMoon, DarkBlob, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const SplashScreen: React.FC = () => {
@@ -36,10 +36,7 @@ const SplashScreen: React.FC = () => {
         ))}
       </div>
 
-      {/* Crescent moon — bolder */}
       <CrescentMoon className="absolute top-12 right-6 w-8 h-8 text-vela-dusty-rose/[0.35]" />
-
-      {/* Gold star dots */}
       <GoldStar className="absolute top-16 right-16 text-accent" size={6} />
       <GoldStar className="absolute top-28 left-8 text-accent" size={7} />
 
@@ -47,19 +44,22 @@ const SplashScreen: React.FC = () => {
       <div className="absolute inset-0 flex flex-col items-center justify-end pb-12 px-6 z-10">
         <div className="flex flex-col items-center mb-auto mt-[55%]">
           <h1
-            className={`font-script text-[52px] tracking-[0.1em] text-primary-foreground transition-opacity duration-[800ms] cubic-bezier(0.22,1,0.36,1) ${show.logo ? 'opacity-100' : 'opacity-0'}`}
+            className={`font-wordmark text-[52px] text-primary-foreground transition-opacity duration-[800ms] ${show.logo ? 'opacity-100' : 'opacity-0'}`}
+            style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
           >
             VELA
           </h1>
-          <WavyUnderline className={`text-accent/40 mt-1 transition-opacity duration-500 ${show.rule ? 'opacity-100' : 'opacity-0'}`} />
+          <div className={`w-10 h-[1px] bg-accent/40 mt-2 transition-opacity duration-500 ${show.rule ? 'opacity-100' : 'opacity-0'}`} />
 
-          <p className={`font-body font-light text-lg text-primary-foreground/80 text-center max-w-[280px] leading-relaxed mt-6 transition-all duration-500 cubic-bezier(0.22,1,0.36,1) ${show.tagline ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+          <p className={`font-body font-light text-lg text-primary-foreground/80 text-center max-w-[280px] leading-relaxed mt-6 ${show.tagline ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+            style={{ transition: 'opacity 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1)' }}>
             Your voice is the most powerful sound your mind knows.
           </p>
         </div>
 
-        <div className={`w-full transition-all duration-500 cubic-bezier(0.22,1,0.36,1) ${show.cta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-          <Button variant="vela-gold" onClick={() => navigate("/promise")}>
+        <div className={`w-full ${show.cta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+          style={{ transition: 'opacity 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1)' }}>
+          <Button variant="vela-cream" onClick={() => navigate("/promise")}>
             Begin
           </Button>
         </div>

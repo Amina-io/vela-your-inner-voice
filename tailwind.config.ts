@@ -14,7 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        script: ["Dancing Script", "cursive"],
+        wordmark: ["Cormorant Garamond", "serif"],
+        handwritten: ["Caveat", "cursive"],
         display: ["Playfair Display", "serif"],
         body: ["DM Sans", "sans-serif"],
       },
@@ -102,17 +103,21 @@ export default {
           to: { opacity: "1", transform: "translateY(0)" },
         },
         "screen-enter": {
-          from: { opacity: "0", transform: "translateY(6px)" },
+          from: { opacity: "0", transform: "translateY(10px)" },
           to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "blobDrift": {
+          from: { transform: "translate(0px, 0px)" },
+          to: { transform: "translate(18px, -12px)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in-up": "fade-in-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards",
-        "fade-in": "fade-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards",
-        "slide-up": "slide-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards",
-        "screen-enter": "screen-enter 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards",
+        "fade-in-up": "fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "fade-in": "fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "slide-up": "slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "screen-enter": "screen-enter 380ms cubic-bezier(0.16, 1, 0.3, 1) forwards",
       },
     },
   },

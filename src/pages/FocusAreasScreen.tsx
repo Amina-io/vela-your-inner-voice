@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
-import { WavyUnderline } from "@/components/vela/Decoratives";
+import { AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const areas = [
@@ -23,10 +23,10 @@ const FocusAreasScreen: React.FC = () => {
 
   return (
     <MobileShell className="bg-background">
+      <AmbientBlobs />
       <div className="flex flex-col items-center min-h-screen px-6 py-12 screen-enter relative z-10">
         <div className="flex flex-col items-center">
-          <span className="font-script text-[26px] text-foreground/50">VELA</span>
-          <WavyUnderline className="text-accent/40 mt-0.5" />
+          <span className="font-wordmark text-[22px] text-foreground/50">VELA</span>
         </div>
 
         <h2 className="font-display text-[28px] text-foreground text-center mt-10">
@@ -43,12 +43,12 @@ const FocusAreasScreen: React.FC = () => {
               <button
                 key={area}
                 onClick={() => toggle(area)}
-                className={`rounded-full px-5 py-3 font-body text-sm active:scale-[1.04] ${
+                className={`rounded-full px-5 py-3 font-body text-sm ${
                   isSelected
                     ? 'bg-primary text-primary-foreground shadow-md'
                     : 'bg-input text-foreground/70'
                 }`}
-                style={{ transition: 'background 180ms ease-out, transform 240ms ease-out, color 180ms ease-out, box-shadow 180ms ease-out' }}
+                style={{ transition: 'background 200ms ease-out, color 200ms ease-out, transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1)', transform: isSelected ? 'scale(1.03)' : 'scale(1)' }}
               >
                 {area}
               </button>

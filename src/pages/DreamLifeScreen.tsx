@@ -61,7 +61,8 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
               <button
                 key={chip}
                 onClick={() => appendChip(chip)}
-                className="font-body font-light text-xs text-foreground/60 bg-input rounded-full px-4 py-2 active:scale-[0.97] transition-all duration-200 ease-out"
+                className="font-body font-light text-xs text-foreground/60 bg-input rounded-full px-4 py-2"
+                style={{ transition: 'transform 150ms ease-out, opacity 150ms ease-out' }}
               >
                 {chip}
               </button>
@@ -77,7 +78,8 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
         />
 
         <div className="flex justify-end mt-2">
-          <span className={`font-body font-light text-xs transition-colors duration-200 ease-out ${isReady ? 'text-primary' : 'text-muted-foreground'}`}>
+          <span className={`font-body font-light text-xs ${isReady ? 'text-primary' : 'text-muted-foreground'}`}
+            style={{ transition: 'color 200ms ease-out' }}>
             {charCount} / 80 min
           </span>
         </div>
@@ -93,7 +95,8 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
                 <button
                   key={chip}
                   onClick={() => appendChip(chip)}
-                  className="font-body font-light text-xs text-foreground/60 bg-input rounded-full px-3 py-2 active:scale-[0.97] transition-all duration-200 ease-out"
+                  className="font-body font-light text-xs text-foreground/60 bg-input rounded-full px-3 py-2"
+                  style={{ transition: 'transform 150ms ease-out, opacity 150ms ease-out' }}
                 >
                   {chip}
                 </button>
@@ -106,7 +109,7 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }
           <Button
             variant="vela-primary"
             onClick={handleCTA}
-            className={`transition-all duration-[400ms] ease-out ${!isReady ? 'opacity-60' : 'opacity-100'}`}
+            style={{ opacity: isReady ? 1 : 0.6, transition: 'opacity 500ms ease-out, background-color 500ms ease-out' }}
           >
             These are my dreams →
           </Button>
