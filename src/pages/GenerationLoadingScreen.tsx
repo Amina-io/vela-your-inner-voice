@@ -9,8 +9,11 @@ const lines = [
   "Crafting your affirmations...",
 ];
 
-const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }) => {
+const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: propName }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const navState = (location.state as any) || {};
+  const userName = propName || navState.userName || "Sofia";
   const [activeLine, setActiveLine] = useState(0);
 
   useEffect(() => {
