@@ -15,6 +15,8 @@ const areas = [
 
 const FocusAreasScreen: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { userName, dreamLife } = (location.state as any) || {};
   const [selected, setSelected] = useState<string[]>([]);
 
   const toggle = (area: string) => {
