@@ -61,19 +61,39 @@ const HomePortal: React.FC<HomePortalProps> = ({ userName: propName, returning =
         <div className="glass-card p-7 mt-6" style={{ borderRadius: 20 }}>
           <div className="flex items-center gap-2">
             <span className="font-display text-[22px] text-foreground">Golden Hour</span>
-            <span className="font-body font-light text-xs text-muted-foreground">528Hz</span>
+            <span className="font-body font-light text-xs text-muted-foreground">{hzFrequency ? `${hzFrequency}Hz` : ''}</span>
           </div>
-          <p className="font-body font-light text-[11px] text-muted-foreground mt-1">First listen — tap to begin</p>
+          {trackReady ? (
+            <p className="font-body font-light text-[11px] text-muted-foreground mt-1">
+              {isPlaying ? formattedTime : "Tap to begin"}
+            </p>
+          ) : (
+            <p className="font-body font-light text-[11px] text-muted-foreground mt-1">
+              Your track is being prepared.
+            </p>
+          )}
 
           <div className="flex justify-center my-6">
-            <button className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg" style={{ transition: 'transform 150ms ease-out, box-shadow 150ms ease-out' }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="hsl(var(--primary-foreground))" stroke="none">
-                <polygon points="5 3 19 12 5 21 5 3"/>
-              </svg>
+            <button
+              onClick={togglePlay}
+              disabled={!trackReady || trackLoading}
+              className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg disabled:opacity-40"
+              style={{ transition: 'transform 150ms ease-out, box-shadow 150ms ease-out' }}
+            >
+              {isPlaying ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="hsl(var(--primary-foreground))" stroke="none">
+                  <rect x="6" y="4" width="4" height="16" rx="1" />
+                  <rect x="14" y="4" width="4" height="16" rx="1" />
+                </svg>
+              ) : (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="hsl(var(--primary-foreground))" stroke="none">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+              )}
             </button>
           </div>
 
-          <WaveformBars count={28} className="h-6" />
+          <WaveformBars count={28} className="h-6" animated={isPlaying} />
 
           <button onClick={() => setShowRefreshModal(true)} className="font-body font-light text-xs text-primary mt-4 block mx-auto active:opacity-70" style={{ transition: 'opacity 200ms ease-out' }}>
             Refresh affirmations
