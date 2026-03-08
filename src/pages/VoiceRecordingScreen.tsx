@@ -5,7 +5,8 @@ import { WaveformBars, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
-const READING_SCRIPT = "I am exactly where I need to be. Every day I wake up feeling clear, grounded, and ready. My voice carries warmth and intention. I speak with ease. I trust myself completely. The life I am building is already becoming real. I feel it in my body, in my breath, in the way I move through the world. I am open. I am ready. I am here.";
+const READING_SCRIPT = "I am exactly where I need to be. My voice is powerful. My words create my world. I wake up clear and ready. I trust myself completely. Money flows to me easily. I am confident and magnetic. My body is healthy and strong. I attract what I desire. I am becoming more myself every day. The life I want is already mine. I speak it into being. I allow good things. I am open. I receive with ease. I am focused. I am worthy. I am enough. Everything is working out for me. I am here. I am ready. I am that I am.";
+const SCRIPT_WORDS = READING_SCRIPT.split(/\s+/);
 
 type ScreenState =
   | "pre"
