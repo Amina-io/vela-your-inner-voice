@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { MobileShell, BottomNav } from "@/components/vela/MobileShell";
 import { CrescentMoon, WaveformBars, AmbientBlobs, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
+import { useTrackPlayer } from "@/hooks/use-track-player";
 
 interface HomePortalProps {
   userName?: string;
