@@ -14,6 +14,7 @@ const HomePortal: React.FC<HomePortalProps> = ({ userName: propName, returning =
   const location = useLocation();
   const navState = (location.state as any) || {};
   const userName = propName || navState.userName || "Friend";
+  const { isPlaying, formattedTime, trackReady, loading: trackLoading, togglePlay, hzFrequency } = useTrackPlayer();
 
   const [wins, setWins] = useState([
     { text: "Your first win: you started.", deletable: false, sage: true },
