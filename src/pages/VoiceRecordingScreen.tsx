@@ -57,16 +57,18 @@ const VoiceRecordingScreen: React.FC = () => {
     return "";
   };
 
-  // Auto-scroll during recording (~30s reading pace)
+  // Karaoke word highlight during recording (60s for full script)
   useEffect(() => {
     if (state === "recording") {
-      const duration = 30000; // 30 seconds for full scroll
+      const totalWords = SCRIPT_WORDS.length;
+      const duration = 60000; // 60 seconds
+      const msPerWord = duration / totalWords;
       const startTime = Date.now();
       const animate = () => {
         const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        setScrollProgress(progress);
-        if (progress < 1) {
+        const wordIdx = Math.min(Math.floor(elapsed / msPerWord), totalWords - 1);
+        setActiveWordIndex(wordIdx);
+        if (elapsed < duration) {
           scrollRef.current = requestAnimationFrame(animate);
         }
       };
@@ -75,7 +77,7 @@ const VoiceRecordingScreen: React.FC = () => {
         if (scrollRef.current) cancelAnimationFrame(scrollRef.current);
       };
     } else {
-      setScrollProgress(0);
+      setActiveWordIndex(-1);
     }
   }, [state]);
 
