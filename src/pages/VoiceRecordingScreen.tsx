@@ -324,21 +324,26 @@ const VoiceRecordingScreen: React.FC = () => {
         {/* RECORDING — with scrolling script */}
         {state === "recording" && (
           <div className="flex-1 flex flex-col items-center w-full relative">
-            {/* Scrolling reading script */}
-            <div className="flex-1 w-full overflow-hidden relative mt-8 mb-4" style={{ maxHeight: 'calc(100vh - 280px)' }}>
-              <div
-                className="transition-none"
-                style={{
-                  transform: `translateY(-${scrollProgress * 60}%)`,
-                }}
-              >
-                <p className="font-display italic text-[22px] text-primary-foreground/80 leading-[1.8] text-center px-2">
-                  {READING_SCRIPT}
-                </p>
-              </div>
-              {/* Fade edges */}
-              <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-vela-dark to-transparent pointer-events-none" />
-              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-vela-dark to-transparent pointer-events-none" />
+            {/* Karaoke script */}
+            <div className="flex-1 w-full overflow-y-auto relative mt-8 mb-4 px-2" style={{ maxHeight: 'calc(100vh - 280px)' }}>
+              <p className="font-display text-[20px] leading-[2] text-center">
+                {SCRIPT_WORDS.map((word, i) => (
+                  <span
+                    key={i}
+                    className="transition-colors duration-200"
+                    style={{
+                      color: i <= activeWordIndex
+                        ? 'hsl(var(--primary))'
+                        : i === activeWordIndex + 1
+                          ? 'hsl(var(--primary) / 0.5)'
+                          : 'hsl(0 0% 55%)',
+                      fontWeight: i === activeWordIndex ? 600 : 400,
+                    }}
+                  >
+                    {word}{' '}
+                  </span>
+                ))}
+              </p>
             </div>
 
             <WaveformBars animated count={28} className="h-8 mb-4" />
@@ -350,10 +355,10 @@ const VoiceRecordingScreen: React.FC = () => {
             {/* Fixed stop button at bottom */}
             <button
               onClick={stopRecording}
-              className="w-20 h-20 rounded-full border-2 border-red-400 animate-breathe flex items-center justify-center active:scale-95 mb-4"
+              className="w-20 h-20 rounded-full border-2 border-destructive animate-breathe flex items-center justify-center active:scale-95 mb-4"
               style={{ transition: "transform 150ms ease-out" }}
             >
-              <div className="w-8 h-8 rounded bg-red-400" />
+              <div className="w-8 h-8 rounded bg-destructive" />
             </button>
             <span className="font-body font-light text-xs text-primary-foreground/60">
               Tap to stop
