@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { MandalaOutline, WaveformBars, DarkBlob } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 
 const PreviewScreen: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const navState = (location.state as any) || {};
   const [playing, setPlaying] = useState(false);
   const [seconds, setSeconds] = useState(0);
-  const [finished, setFinished] = useState(false);
   const intervalRef = useRef<number>();
 
   useEffect(() => {
@@ -22,7 +23,6 @@ const PreviewScreen: React.FC = () => {
         setSeconds(s => {
           if (s >= 13) {
             setPlaying(false);
-            setFinished(true);
             return 14;
           }
           return s + 1;
@@ -33,7 +33,6 @@ const PreviewScreen: React.FC = () => {
   }, [playing, seconds]);
 
   const togglePlay = () => {
-    if (finished) return;
     setPlaying(!playing);
   };
 
@@ -69,14 +68,13 @@ const PreviewScreen: React.FC = () => {
 
         <span className="font-body font-light text-xs text-primary-foreground/50 mt-4">{formatTime(seconds)} / 0:14</span>
 
-        {finished && (
-          <div className="absolute bottom-12 left-0 right-0 px-6 animate-slide-up flex flex-col items-center gap-2">
-            <Button variant="vela-primary" className="w-full" onClick={() => navigate("/subscribe")}>
-              Listen to the full track →
-            </Button>
-            <span className="font-body font-light text-[11px] text-primary-foreground/30">Subscribe to unlock unlimited listens.</span>
-          </div>
-        )}
+        {/* Always show CTA — no forced listen */}
+        <div className="absolute bottom-12 left-0 right-0 px-6 flex flex-col items-center gap-2">
+          <Button variant="vela-primary" className="w-full" onClick={() => navigate("/subscribe", { state: navState })}>
+            Listen to the full track →
+          </Button>
+          <span className="font-body font-light text-[11px] text-primary-foreground/30">Subscribe to unlock unlimited listens.</span>
+        </div>
       </div>
     </MobileShell>
   );

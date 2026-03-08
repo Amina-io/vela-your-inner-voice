@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { MobileShell, BottomNav } from "@/components/vela/MobileShell";
 import { CrescentMoon, WaveformBars, AmbientBlobs, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
@@ -8,10 +9,13 @@ interface HomePortalProps {
   returning?: boolean;
 }
 
-const HomePortal: React.FC<HomePortalProps> = ({ userName = "Sofia", returning = false }) => {
+const HomePortal: React.FC<HomePortalProps> = ({ userName: propName, returning = false }) => {
+  const location = useLocation();
+  const navState = (location.state as any) || {};
+  const userName = propName || navState.userName || "Friend";
+
   const [wins, setWins] = useState([
     { text: "Your first win: you started.", deletable: false, sage: true },
-    { text: "Got a new client today.", deletable: true, sage: false },
   ]);
   const [newWin, setNewWin] = useState("");
   const [showRefreshModal, setShowRefreshModal] = useState(false);

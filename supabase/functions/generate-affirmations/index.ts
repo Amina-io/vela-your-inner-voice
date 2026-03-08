@@ -36,24 +36,29 @@ Deno.serve(async (req) => {
       });
     }
 
-    const { dreamLife, focusAreas, userName } = await req.json();
+    const { dreamLife, userName } = await req.json();
 
     const anthropicKey = Deno.env.get("ANTHROPIC_API_KEY");
     if (!anthropicKey) {
       throw new Error("ANTHROPIC_API_KEY not configured");
     }
 
-    const systemPrompt = `You are Vela, a warm and poetic affirmation coach. Generate exactly 5 affirmations for the user based on their dream life description and focus areas. Each affirmation must:
+    const systemPrompt = `You are Vela, a warm and poetic affirmation coach. Generate exactly 5 affirmations for the user based on their dream life description. Each affirmation must:
 - Be in first person, present tense ("I am...", "I feel...", "I create...")
 - Feel personal, not generic
 - Be 1-2 sentences max
 - Sound warm, grounded, and believable
 
-Return ONLY a JSON object: { "affirmations": ["...", "...", "...", "...", "..."] }`;
+Also suggest the best Hz frequency for this person based on their vision:
+- 432: for sleep, surrender, deep rest
+- 528: for love, morning intention, heart opening
+- 396: for releasing fear, guilt, emotional weight
+- 741: for clarity, focus, creative expression
+
+Return ONLY a JSON object: { "affirmations": ["...", "...", "...", "...", "..."], "suggestedHz": 528 }`;
 
     const userPrompt = `Name: ${userName || "Friend"}
-Dream life: ${dreamLife || "A life of peace, purpose, and abundance."}
-Focus areas: ${(focusAreas || []).join(", ") || "general wellbeing"}`;
+Dream life: ${dreamLife || "A life of peace, purpose, and abundance."}`;
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",

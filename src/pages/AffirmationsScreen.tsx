@@ -8,9 +8,10 @@ import { supabase } from "@/integrations/supabase/client";
 const AffirmationsScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { userName = "Sofia", dreamLife = "", focusAreas = [] } = (location.state as any) || {};
+  const { userName = "Friend", dreamLife = "" } = (location.state as any) || {};
 
   const [affirmations, setAffirmations] = useState<string[]>([]);
+  const [suggestedHz, setSuggestedHz] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingIdx, setEditingIdx] = useState<number | null>(null);
@@ -24,7 +25,7 @@ const AffirmationsScreen: React.FC = () => {
     setError(null);
     try {
       const { data, error: fnError } = await supabase.functions.invoke("generate-affirmations", {
-        body: { dreamLife, focusAreas, userName },
+        body: { dreamLife, userName },
       });
       if (fnError) throw fnError;
       const affs: string[] = data?.affirmations;
@@ -32,6 +33,9 @@ const AffirmationsScreen: React.FC = () => {
         throw new Error("No affirmations returned");
       }
       setAffirmations(affs);
+      if (data?.suggestedHz) {
+        setSuggestedHz(data.suggestedHz);
+      }
     } catch (err: any) {
       console.error("[Vela] generate-affirmations error:", err);
       setError(err.message || "Something went wrong");
@@ -49,7 +53,6 @@ const AffirmationsScreen: React.FC = () => {
         const { error: insertErr } = await supabase.from("affirmation_sets").insert({
           user_id: session.user.id,
           dream_life_description: dreamLife,
-          focus_areas: focusAreas,
           affirmations: affirmations as any,
         });
         if (insertErr) {
@@ -61,7 +64,7 @@ const AffirmationsScreen: React.FC = () => {
       };
       saveToDb();
     }
-  }, [affirmations, saved, dreamLife, focusAreas]);
+  }, [affirmations, saved, dreamLife]);
 
   useEffect(() => {
     fetchAffirmations();
@@ -213,7 +216,7 @@ const AffirmationsScreen: React.FC = () => {
       </div>
 
       <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[375px] p-6 pt-3 bg-gradient-to-t from-background via-background to-transparent z-20">
-        <Button variant="vela-primary" onClick={() => navigate("/voice")}>
+        <Button variant="vela-primary" onClick={() => navigate("/voice", { state: { userName, suggestedHz } })}>
           These feel right → Now let's hear them in your voice
         </Button>
       </div>

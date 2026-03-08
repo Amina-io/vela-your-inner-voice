@@ -5,6 +5,8 @@ import { WaveformBars, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
+const READING_SCRIPT = "I am exactly where I need to be. Every day I wake up feeling clear, grounded, and ready. My voice carries warmth and intention. I speak with ease. I trust myself completely. The life I am building is already becoming real. I feel it in my body, in my breath, in the way I move through the world. I am open. I am ready. I am here.";
+
 type ScreenState =
   | "pre"
   | "recording"
@@ -16,7 +18,8 @@ type ScreenState =
 const VoiceRecordingScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { userName = "Sofia", affirmations = [] } = (location.state as any) || {};
+  const navState = (location.state as any) || {};
+  const userName = navState.userName || "Friend";
 
   const [state, setState] = useState<ScreenState>("pre");
   const [timer, setTimer] = useState(0);
@@ -25,6 +28,7 @@ const VoiceRecordingScreen: React.FC = () => {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [voiceId, setVoiceId] = useState<string | null>(null);
   const [signedAudioUrl, setSignedAudioUrl] = useState<string | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -32,11 +36,13 @@ const VoiceRecordingScreen: React.FC = () => {
   const streamRef = useRef<MediaStream | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const timerRef = useRef<number | null>(null);
+  const scrollRef = useRef<number | null>(null);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
+      if (scrollRef.current) cancelAnimationFrame(scrollRef.current);
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((t) => t.stop());
       }
@@ -49,6 +55,28 @@ const VoiceRecordingScreen: React.FC = () => {
     if (MediaRecorder.isTypeSupported("audio/mp4")) return "audio/mp4";
     return "";
   };
+
+  // Auto-scroll during recording (~30s reading pace)
+  useEffect(() => {
+    if (state === "recording") {
+      const duration = 30000; // 30 seconds for full scroll
+      const startTime = Date.now();
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        setScrollProgress(progress);
+        if (progress < 1) {
+          scrollRef.current = requestAnimationFrame(animate);
+        }
+      };
+      scrollRef.current = requestAnimationFrame(animate);
+      return () => {
+        if (scrollRef.current) cancelAnimationFrame(scrollRef.current);
+      };
+    } else {
+      setScrollProgress(0);
+    }
+  }, [state]);
 
   const startRecording = useCallback(async () => {
     try {
@@ -73,11 +101,10 @@ const VoiceRecordingScreen: React.FC = () => {
         stream.getTracks().forEach((t) => t.stop());
       };
 
-      recorder.start(250); // collect in 250ms chunks
+      recorder.start(250);
       setState("recording");
       setTimer(0);
 
-      // Timer
       timerRef.current = window.setInterval(() => {
         setTimer((t) => {
           if (t >= 59) {
@@ -102,6 +129,10 @@ const VoiceRecordingScreen: React.FC = () => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = null;
+    }
+    if (scrollRef.current) {
+      cancelAnimationFrame(scrollRef.current);
+      scrollRef.current = null;
     }
     if (mediaRecorderRef.current?.state === "recording") {
       mediaRecorderRef.current.stop();
@@ -148,7 +179,6 @@ const VoiceRecordingScreen: React.FC = () => {
       formData.append("userId", userId);
       formData.append("userName", userName);
 
-      // Call clone-voice edge function
       const cloneRes = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/clone-voice`,
         {
@@ -170,10 +200,8 @@ const VoiceRecordingScreen: React.FC = () => {
       setVoiceId(voice_id);
       console.log("[Vela] Voice cloned:", voice_id);
 
-      // Now generate audio
       setState("generating");
 
-      // Fetch affirmations from the database
       const { data: affirmationSet, error: affError } = await supabase
         .from("affirmation_sets")
         .select("affirmations")
@@ -216,7 +244,7 @@ const VoiceRecordingScreen: React.FC = () => {
       console.log("[Vela] Audio generated, navigating to next screen");
 
       navigate("/create-account", {
-        state: { userName, voiceId: voice_id, signedAudioUrl: signedUrl, affirmations },
+        state: { ...navState, voiceId: voice_id, signedAudioUrl: signedUrl },
       });
     } catch (err: any) {
       console.error("[Vela] Submit error:", err);
@@ -260,16 +288,10 @@ const VoiceRecordingScreen: React.FC = () => {
 
             <div className="glass-card p-6 mt-8 w-full">
               <span className="font-body text-xs text-muted-foreground">
-                Read this:
+                You'll read this while recording:
               </span>
               <p className="font-display italic text-lg text-foreground leading-relaxed mt-3">
-                {userName}, read this naturally. Imagine you're speaking to a
-                version of yourself you love.
-              </p>
-              <p className="font-display italic text-lg text-foreground leading-relaxed mt-4">
-                "I am creating the life I deserve. I trust myself completely. I
-                am open to everything good. I am ready. Everything I need is
-                already within me. I am that I am."
+                "{READING_SCRIPT}"
               </p>
             </div>
 
@@ -302,23 +324,41 @@ const VoiceRecordingScreen: React.FC = () => {
           </div>
         )}
 
-        {/* RECORDING */}
+        {/* RECORDING — with scrolling script */}
         {state === "recording" && (
-          <div className="flex-1 flex flex-col items-center justify-center">
-            <WaveformBars animated count={28} className="h-12 mb-10" />
+          <div className="flex-1 flex flex-col items-center w-full relative">
+            {/* Scrolling reading script */}
+            <div className="flex-1 w-full overflow-hidden relative mt-8 mb-4" style={{ maxHeight: 'calc(100vh - 280px)' }}>
+              <div
+                className="transition-none"
+                style={{
+                  transform: `translateY(-${scrollProgress * 60}%)`,
+                }}
+              >
+                <p className="font-display italic text-[22px] text-primary-foreground/80 leading-[1.8] text-center px-2">
+                  {READING_SCRIPT}
+                </p>
+              </div>
+              {/* Fade edges */}
+              <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-vela-dark to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-vela-dark to-transparent pointer-events-none" />
+            </div>
 
+            <WaveformBars animated count={28} className="h-8 mb-4" />
+
+            <span className="font-body font-light text-base text-primary-foreground mb-2">
+              {formatTime(timer)}
+            </span>
+
+            {/* Fixed stop button at bottom */}
             <button
               onClick={stopRecording}
-              className="w-20 h-20 rounded-full border-2 border-red-400 animate-breathe flex items-center justify-center active:scale-95"
+              className="w-20 h-20 rounded-full border-2 border-red-400 animate-breathe flex items-center justify-center active:scale-95 mb-4"
               style={{ transition: "transform 150ms ease-out" }}
             >
               <div className="w-8 h-8 rounded bg-red-400" />
             </button>
-
-            <span className="font-body font-light text-base text-primary-foreground mt-4">
-              {formatTime(timer)}
-            </span>
-            <span className="font-body font-light text-xs text-primary-foreground/60 mt-1">
+            <span className="font-body font-light text-xs text-primary-foreground/60">
               Tap to stop
             </span>
           </div>
@@ -378,7 +418,7 @@ const VoiceRecordingScreen: React.FC = () => {
               Creating your voice…
             </p>
             <p className="font-body font-light text-sm text-foreground/50 text-center max-w-[260px]">
-              This takes 10–30 seconds. We're teaching AI to sound like you.
+              This takes 10–30 seconds. We're learning to sound like you.
             </p>
           </div>
         )}
