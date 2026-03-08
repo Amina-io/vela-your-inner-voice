@@ -5,7 +5,8 @@ import { WaveformBars, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
-const READING_SCRIPT = "I am exactly where I need to be. Every day I wake up feeling clear, grounded, and ready. My voice carries warmth and intention. I speak with ease. I trust myself completely. The life I am building is already becoming real. I feel it in my body, in my breath, in the way I move through the world. I am open. I am ready. I am here.";
+const READING_SCRIPT = "I am exactly where I need to be. My voice is powerful. My words create my world. I wake up clear and ready. I trust myself completely. Money flows to me easily. I am confident and magnetic. My body is healthy and strong. I attract what I desire. I am becoming more myself every day. The life I want is already mine. I speak it into being. I allow good things. I am open. I receive with ease. I am focused. I am worthy. I am enough. Everything is working out for me. I am here. I am ready. I am that I am.";
+const SCRIPT_WORDS = READING_SCRIPT.split(/\s+/);
 
 type ScreenState =
   | "pre"
@@ -28,7 +29,7 @@ const VoiceRecordingScreen: React.FC = () => {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [voiceId, setVoiceId] = useState<string | null>(null);
   const [signedAudioUrl, setSignedAudioUrl] = useState<string | null>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeWordIndex, setActiveWordIndex] = useState(-1);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -56,16 +57,18 @@ const VoiceRecordingScreen: React.FC = () => {
     return "";
   };
 
-  // Auto-scroll during recording (~30s reading pace)
+  // Karaoke word highlight during recording (60s for full script)
   useEffect(() => {
     if (state === "recording") {
-      const duration = 30000; // 30 seconds for full scroll
+      const totalWords = SCRIPT_WORDS.length;
+      const duration = 60000; // 60 seconds
+      const msPerWord = duration / totalWords;
       const startTime = Date.now();
       const animate = () => {
         const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        setScrollProgress(progress);
-        if (progress < 1) {
+        const wordIdx = Math.min(Math.floor(elapsed / msPerWord), totalWords - 1);
+        setActiveWordIndex(wordIdx);
+        if (elapsed < duration) {
           scrollRef.current = requestAnimationFrame(animate);
         }
       };
@@ -74,7 +77,7 @@ const VoiceRecordingScreen: React.FC = () => {
         if (scrollRef.current) cancelAnimationFrame(scrollRef.current);
       };
     } else {
-      setScrollProgress(0);
+      setActiveWordIndex(-1);
     }
   }, [state]);
 
@@ -106,13 +109,7 @@ const VoiceRecordingScreen: React.FC = () => {
       setTimer(0);
 
       timerRef.current = window.setInterval(() => {
-        setTimer((t) => {
-          if (t >= 59) {
-            stopRecording();
-            return 60;
-          }
-          return t + 1;
-        });
+        setTimer((t) => t + 1);
       }, 1000);
     } catch (err: any) {
       console.error("[Vela] Microphone error:", err);
@@ -318,7 +315,7 @@ const VoiceRecordingScreen: React.FC = () => {
                 </svg>
               </button>
               <span className="font-body font-light text-xs text-muted-foreground mt-3">
-                ~30 seconds • max 60s
+                ~60 seconds
               </span>
             </div>
           </div>
@@ -327,21 +324,26 @@ const VoiceRecordingScreen: React.FC = () => {
         {/* RECORDING — with scrolling script */}
         {state === "recording" && (
           <div className="flex-1 flex flex-col items-center w-full relative">
-            {/* Scrolling reading script */}
-            <div className="flex-1 w-full overflow-hidden relative mt-8 mb-4" style={{ maxHeight: 'calc(100vh - 280px)' }}>
-              <div
-                className="transition-none"
-                style={{
-                  transform: `translateY(-${scrollProgress * 60}%)`,
-                }}
-              >
-                <p className="font-display italic text-[22px] text-primary-foreground/80 leading-[1.8] text-center px-2">
-                  {READING_SCRIPT}
-                </p>
-              </div>
-              {/* Fade edges */}
-              <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-vela-dark to-transparent pointer-events-none" />
-              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-vela-dark to-transparent pointer-events-none" />
+            {/* Karaoke script */}
+            <div className="flex-1 w-full overflow-y-auto relative mt-8 mb-4 px-2" style={{ maxHeight: 'calc(100vh - 280px)' }}>
+              <p className="font-display text-[20px] leading-[2] text-center">
+                {SCRIPT_WORDS.map((word, i) => (
+                  <span
+                    key={i}
+                    className="transition-colors duration-200"
+                    style={{
+                      color: i <= activeWordIndex
+                        ? 'hsl(var(--primary))'
+                        : i === activeWordIndex + 1
+                          ? 'hsl(var(--primary) / 0.5)'
+                          : 'hsl(0 0% 55%)',
+                      fontWeight: i === activeWordIndex ? 600 : 400,
+                    }}
+                  >
+                    {word}{' '}
+                  </span>
+                ))}
+              </p>
             </div>
 
             <WaveformBars animated count={28} className="h-8 mb-4" />
@@ -353,10 +355,10 @@ const VoiceRecordingScreen: React.FC = () => {
             {/* Fixed stop button at bottom */}
             <button
               onClick={stopRecording}
-              className="w-20 h-20 rounded-full border-2 border-red-400 animate-breathe flex items-center justify-center active:scale-95 mb-4"
+              className="w-20 h-20 rounded-full border-2 border-destructive animate-breathe flex items-center justify-center active:scale-95 mb-4"
               style={{ transition: "transform 150ms ease-out" }}
             >
-              <div className="w-8 h-8 rounded bg-red-400" />
+              <div className="w-8 h-8 rounded bg-destructive" />
             </button>
             <span className="font-body font-light text-xs text-primary-foreground/60">
               Tap to stop
