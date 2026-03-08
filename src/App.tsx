@@ -9,7 +9,6 @@ import SplashScreen from "./pages/SplashScreen";
 import PromiseScreen from "./pages/PromiseScreen";
 import NameScreen from "./pages/NameScreen";
 import DreamLifeScreen from "./pages/DreamLifeScreen";
-import FocusAreasScreen from "./pages/FocusAreasScreen";
 import GenerationLoadingScreen from "./pages/GenerationLoadingScreen";
 import AffirmationsScreen from "./pages/AffirmationsScreen";
 import VoiceRecordingScreen from "./pages/VoiceRecordingScreen";
@@ -59,7 +58,6 @@ const App = () => {
             <Route path="/promise" element={<PromiseScreen />} />
             <Route path="/name" element={<NameScreen />} />
             <Route path="/dream" element={<DreamLifeScreen />} />
-            <Route path="/focus" element={<FocusAreasScreen />} />
             <Route path="/generating" element={<GenerationLoadingScreen />} />
             <Route path="/affirmations" element={<AffirmationsScreen />} />
             <Route path="/voice" element={<VoiceRecordingScreen />} />

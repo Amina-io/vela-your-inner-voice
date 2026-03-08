@@ -20,7 +20,7 @@ const nudgeChips = [
 const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName: propName }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const userName = propName || (location.state as any)?.userName || "Sofia";
+  const userName = propName || (location.state as any)?.userName || "Friend";
   const [text, setText] = useState("");
   const [showNudge, setShowNudge] = useState(false);
 
@@ -29,7 +29,7 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName: propName }
 
   const handleCTA = () => {
     if (isReady) {
-      navigate("/focus", { state: { userName, dreamLife: text } });
+      navigate("/generating", { state: { userName, dreamLife: text } });
     } else {
       setShowNudge(true);
     }

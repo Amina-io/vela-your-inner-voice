@@ -3,17 +3,18 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { ConstellationStars, DarkBlob } from "@/components/vela/Decoratives";
 
-const lines = [
-  "Reading your vision, Sofia...",
-  "Finding your words...",
-  "Crafting your affirmations...",
-];
-
 const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: propName }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const navState = (location.state as any) || {};
-  const userName = propName || navState.userName || "Sofia";
+  const userName = propName || navState.userName || "Friend";
+
+  const lines = [
+    `Reading your vision, ${userName}...`,
+    "Crafting your words...",
+    "Building your subliminal...",
+  ];
+
   const [activeLine, setActiveLine] = useState(0);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: pr
                 transform: i <= activeLine ? 'translateY(0)' : 'translateY(8px)',
               }}
             >
-              {i === 0 ? line.replace("Sofia", userName) : line}
+              {line}
             </p>
           ))}
         </div>

@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { WaveformBars, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const tracks = [
-  { name: "Deep Space", hz: "432Hz", mood: "For sleep and surrender" },
-  { name: "Golden Hour", hz: "528Hz", mood: "For morning intention and love" },
-  { name: "Still Water", hz: "396Hz", mood: "For releasing fear and guilt" },
-  { name: "Pulse", hz: "741Hz", mood: "For clarity, focus and expression" },
+  { name: "Deep Space", hz: 432, mood: "For sleep and surrender" },
+  { name: "Golden Hour", hz: 528, mood: "For morning intention and love" },
+  { name: "Still Water", hz: 396, mood: "For releasing fear and guilt" },
+  { name: "Pulse", hz: 741, mood: "For clarity, focus and expression" },
 ];
 
-const ChooseTrackScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }) => {
+const ChooseTrackScreen: React.FC = () => {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState(1);
+  const location = useLocation();
+  const navState = (location.state as any) || {};
+  const userName = navState.userName || "Friend";
+  const suggestedHz: number | null = navState.suggestedHz || null;
+
+  const defaultIdx = suggestedHz ? tracks.findIndex(t => t.hz === suggestedHz) : 1;
+  const [selected, setSelected] = useState(defaultIdx >= 0 ? defaultIdx : 1);
   const [previewing, setPreviewing] = useState<number | null>(null);
 
   useEffect(() => {
@@ -40,15 +47,21 @@ const ChooseTrackScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia"
           {tracks.map((track, i) => {
             const isSelected = selected === i;
             const isPreviewing = previewing === i;
+            const isSuggested = suggestedHz === track.hz;
             return (
               <button
                 key={i}
                 onClick={() => { setSelected(i); togglePreview(i); }}
-                className={`glass-card p-5 flex items-center gap-4 ${
+                className={`glass-card p-5 flex items-center gap-4 relative ${
                   isSelected ? 'border-[1.5px] border-primary bg-primary/[0.05]' : ''
                 }`}
                 style={{ transition: 'border-color 200ms ease-out, background 200ms ease-out, transform 150ms ease-out' }}
               >
+                {isSuggested && (
+                  <Badge className="absolute -top-2.5 right-4 bg-accent text-accent-foreground border-0 text-[10px] font-body font-normal px-2 py-0.5">
+                    ✦ Suggested for you
+                  </Badge>
+                )}
                 <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
                   {isSelected ? (
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -63,7 +76,7 @@ const ChooseTrackScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia"
                 <div className="flex-1 text-left">
                   <div className="flex items-center gap-2">
                     <span className="font-body font-normal text-base text-foreground">{track.name}</span>
-                    <span className="font-body text-xs text-muted-foreground">{track.hz}</span>
+                    <span className="font-body text-xs text-muted-foreground">{track.hz}Hz</span>
                   </div>
                   {isPreviewing ? (
                     <WaveformBars animated count={16} className="h-4 mt-1" />
@@ -77,7 +90,7 @@ const ChooseTrackScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia"
         </div>
 
         <div className="mt-auto pt-8">
-          <Button variant="vela-primary" onClick={() => navigate("/preview")}>
+          <Button variant="vela-primary" onClick={() => navigate("/preview", { state: navState })}>
             This is my frequency →
           </Button>
         </div>

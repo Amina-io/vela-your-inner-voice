@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { MobileShell, BottomNav } from "@/components/vela/MobileShell";
 import { AmbientBlobs } from "@/components/vela/Decoratives";
 
-const SettingsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" }) => {
+const SettingsScreen: React.FC = () => {
+  const location = useLocation();
+  const navState = (location.state as any) || {};
+  const userName = navState.userName || "Friend";
+
   const [dailyReminders, setDailyReminders] = useState(true);
   const [weeklyNudge, setWeeklyNudge] = useState(true);
 
@@ -19,7 +24,7 @@ const SettingsScreen: React.FC<{ userName?: string }> = ({ userName = "Sofia" })
             <EditIcon />
           </div>
           <div className="flex items-center justify-between py-3">
-            <span className="font-body font-light text-sm text-foreground">sofia@example.com</span>
+            <span className="font-body font-light text-sm text-foreground/60">Email not set</span>
             <EditIcon />
           </div>
         </div>
