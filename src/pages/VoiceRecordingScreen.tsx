@@ -29,7 +29,7 @@ const VoiceRecordingScreen: React.FC = () => {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [voiceId, setVoiceId] = useState<string | null>(null);
   const [signedAudioUrl, setSignedAudioUrl] = useState<string | null>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeWordIndex, setActiveWordIndex] = useState(-1);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
