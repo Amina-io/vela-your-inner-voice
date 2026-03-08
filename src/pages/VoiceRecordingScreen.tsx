@@ -315,7 +315,7 @@ const VoiceRecordingScreen: React.FC = () => {
                 </svg>
               </button>
               <span className="font-body font-light text-xs text-muted-foreground mt-3">
-                ~30 seconds • max 60s
+                ~60 seconds
               </span>
             </div>
           </div>
