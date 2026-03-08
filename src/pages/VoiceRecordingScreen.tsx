@@ -109,13 +109,7 @@ const VoiceRecordingScreen: React.FC = () => {
       setTimer(0);
 
       timerRef.current = window.setInterval(() => {
-        setTimer((t) => {
-          if (t >= 59) {
-            stopRecording();
-            return 60;
-          }
-          return t + 1;
-        });
+        setTimer((t) => t + 1);
       }, 1000);
     } catch (err: any) {
       console.error("[Vela] Microphone error:", err);
