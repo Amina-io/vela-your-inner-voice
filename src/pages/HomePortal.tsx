@@ -63,15 +63,9 @@ const HomePortal: React.FC<HomePortalProps> = ({ userName: propName, returning =
             <span className="font-display text-[22px] text-foreground">Golden Hour</span>
             <span className="font-body font-light text-xs text-muted-foreground">{hzFrequency ? `${hzFrequency}Hz` : ''}</span>
           </div>
-          {trackReady ? (
-            <p className="font-body font-light text-[11px] text-muted-foreground mt-1">
-              {isPlaying ? formattedTime : "Tap to begin"}
-            </p>
-          ) : (
-            <p className="font-body font-light text-[11px] text-muted-foreground mt-1">
-              Your track is being prepared.
-            </p>
-          )}
+          <p className="font-body font-light text-[11px] text-muted-foreground mt-1">
+            {isPlaying ? formattedTime : "Tap to begin"}
+          </p>
 
           <div className="flex justify-center my-6">
             <button
