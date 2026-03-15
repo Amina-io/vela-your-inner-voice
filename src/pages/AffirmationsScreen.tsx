@@ -225,6 +225,14 @@ const AffirmationsScreen: React.FC = () => {
         )}
       </div>
 
+      {/* Playing card cat collage - bottom left, above CTA button */}
+      <img
+        src={graphic8}
+        alt=""
+        className="absolute bottom-28 left-4 w-[100px] pointer-events-none"
+        style={{ opacity: 0.75, zIndex: 1 }}
+      />
+
       <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[375px] p-6 pt-3 bg-gradient-to-t from-background via-background to-transparent z-20">
         <Button variant="vela-primary" onClick={() => navigate("/voice", { state: { userName, suggestedHz } })}>
           These feel right → Now let's hear them in your voice
