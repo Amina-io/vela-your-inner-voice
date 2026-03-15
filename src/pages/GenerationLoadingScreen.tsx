@@ -51,10 +51,13 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: pr
       <ConstellationStars className="absolute top-12 right-6 w-14 h-14 text-accent/[0.35]" />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 z-10">
-        {/* Breathing circle */}
-        <div className="w-20 h-20 rounded-full border-[1.5px] border-accent/40 animate-breathe flex items-center justify-center mb-10">
-          <div className="w-3 h-3 rounded-full bg-accent/30" />
-        </div>
+        {/* Shell + stars collage - centered at top, decorative above loading text */}
+        <img
+          src={graphic2}
+          alt=""
+          className="w-[130px] pointer-events-none mb-6"
+          style={{ opacity: 0.8 }}
+        />
 
         {/* Copy sequence */}
         <div className="flex flex-col items-center gap-3">
