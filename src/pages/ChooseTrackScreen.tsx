@@ -4,6 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { WaveformBars, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import graphic6 from "@/assets/graphic-6.png";
 
 const tracks = [
   { name: "Deep Space", hz: 432, mood: "For sleep and surrender" },
