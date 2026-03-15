@@ -4,6 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import graphic5 from "@/assets/graphic-5.png";
+import graphic4 from "@/assets/graphic-4.png";
 
 interface NameScreenProps {
   onNameSet?: (name: string) => void;
