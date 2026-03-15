@@ -5,6 +5,7 @@ import { CrescentMoon, WaveformBars, AmbientBlobs, GoldStar } from "@/components
 import { Button } from "@/components/ui/button";
 import { useTrackPlayer } from "@/hooks/use-track-player";
 import graphic7 from "@/assets/graphic-7.png";
+import graphic4 from "@/assets/graphic-4.png";
 
 interface HomePortalProps {
   userName?: string;
