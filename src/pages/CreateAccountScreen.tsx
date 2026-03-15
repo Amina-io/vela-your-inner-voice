@@ -4,6 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import graphic3 from "@/assets/graphic-3.png";
+import graphic6 from "@/assets/graphic-6.png";
 
 const CreateAccountScreen: React.FC = () => {
   const navigate = useNavigate();
