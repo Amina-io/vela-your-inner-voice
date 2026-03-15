@@ -320,11 +320,11 @@ const VoiceRecordingScreen: React.FC = () => {
               </span>
             </div>
 
-            {/* Flower + butterflies collage - bottom left */}
+            {/* Playing card cat collage - bottom right, above mic button */}
             <img
-              src={graphic5}
+              src={graphic8}
               alt=""
-              className="absolute -bottom-10 -left-8 w-[150px] pointer-events-none"
+              className="absolute bottom-[140px] right-4 w-[120px] pointer-events-none"
               style={{ opacity: 0.75, zIndex: 1 }}
             />
           </div>

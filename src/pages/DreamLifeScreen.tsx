@@ -117,6 +117,14 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName: propName }
             These are my dreams →
           </Button>
         </div>
+
+        {/* Cat + star + flower collage - bottom left, above CTA */}
+        <img
+          src={graphic1}
+          alt=""
+          className="absolute bottom-[100px] left-4 w-[110px] pointer-events-none"
+          style={{ opacity: 0.8, zIndex: 1 }}
+        />
       </div>
     </MobileShell>
   );

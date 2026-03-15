@@ -12,12 +12,12 @@ const PromiseScreen: React.FC = () => {
     <MobileShell className="bg-background bg-ambient">
       <AmbientBlobs />
 
-      {/* Shell + stars collage - top right, partially cropped */}
+      {/* Shell + stars collage - top right corner, fully visible */}
       <img
         src={graphic2}
         alt=""
-        className="absolute -top-4 -right-6 w-[140px] pointer-events-none"
-        style={{ opacity: 0.9, transform: 'rotate(-15deg)', zIndex: 1 }}
+        className="absolute top-4 right-4 w-[100px] pointer-events-none"
+        style={{ opacity: 0.9, zIndex: 1 }}
       />
 
       <div className="flex flex-col items-center justify-between min-h-screen px-6 py-12 screen-enter relative z-10">
