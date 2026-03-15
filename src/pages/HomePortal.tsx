@@ -4,6 +4,7 @@ import { MobileShell, BottomNav } from "@/components/vela/MobileShell";
 import { CrescentMoon, WaveformBars, AmbientBlobs, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import { useTrackPlayer } from "@/hooks/use-track-player";
+import graphic7 from "@/assets/graphic-7.png";
 
 interface HomePortalProps {
   userName?: string;
@@ -38,6 +39,14 @@ const HomePortal: React.FC<HomePortalProps> = ({ userName: propName, returning =
     <MobileShell className="bg-background">
       <AmbientBlobs />
       <CrescentMoon className="absolute top-12 right-6 w-8 h-8 text-accent/[0.35]" />
+      
+      {/* Swan collage - top right, behind all content as watermark */}
+      <img
+        src={graphic7}
+        alt=""
+        className="absolute -top-4 -right-8 w-[160px] pointer-events-none"
+        style={{ opacity: 0.5, zIndex: 0 }}
+      />
       
       <GoldStar className="absolute top-14 right-16 text-accent z-10" size={6} />
       <GoldStar className="absolute top-36 left-6 text-accent z-10" size={7} />

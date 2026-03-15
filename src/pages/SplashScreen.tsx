@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { CrescentMoon, DarkBlob, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
+import graphic7 from "@/assets/graphic-7.png";
 
 const SplashScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -39,6 +40,14 @@ const SplashScreen: React.FC = () => {
       <CrescentMoon className="absolute top-12 right-6 w-8 h-8 text-vela-dusty-rose/[0.35]" />
       <GoldStar className="absolute top-16 right-16 text-accent" size={6} />
       <GoldStar className="absolute top-28 left-8 text-accent" size={7} />
+
+      {/* Swan collage - bottom right, behind button */}
+      <img
+        src={graphic7}
+        alt=""
+        className="absolute -bottom-8 -right-12 w-[180px] pointer-events-none"
+        style={{ opacity: 0.85, zIndex: 1 }}
+      />
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-end pb-12 px-6 z-10">

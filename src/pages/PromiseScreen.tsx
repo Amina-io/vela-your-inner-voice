@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
+import graphic2 from "@/assets/graphic-2.png";
 
 const PromiseScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -10,6 +11,15 @@ const PromiseScreen: React.FC = () => {
   return (
     <MobileShell className="bg-background bg-ambient">
       <AmbientBlobs />
+
+      {/* Shell + stars collage - top right, partially cropped */}
+      <img
+        src={graphic2}
+        alt=""
+        className="absolute -top-4 -right-6 w-[140px] pointer-events-none"
+        style={{ opacity: 0.9, transform: 'rotate(-15deg)', zIndex: 1 }}
+      />
+
       <div className="flex flex-col items-center justify-between min-h-screen px-6 py-12 screen-enter relative z-10">
         {/* VELA wordmark */}
         <div className="flex flex-col items-center">
