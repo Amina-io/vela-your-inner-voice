@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
+import graphic2 from "@/assets/graphic-2.png";
 
 const PromiseScreen: React.FC = () => {
   const navigate = useNavigate();
