@@ -5,6 +5,7 @@ import { BotanicalSprig, AmbientBlobs, GoldStar } from "@/components/vela/Decora
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import graphic5 from "@/assets/graphic-5.png";
+import graphic8 from "@/assets/graphic-8.png";
 
 const AffirmationsScreen: React.FC = () => {
   const navigate = useNavigate();
