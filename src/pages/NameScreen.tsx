@@ -26,6 +26,14 @@ const NameScreen: React.FC<NameScreenProps> = ({ onNameSet }) => {
       <AmbientBlobs />
       <BotanicalSprig className="absolute bottom-20 left-4 w-14 h-20 text-vela-dusty-rose/[0.35]" />
 
+      {/* Cat face + pink flower collage - top left, decorative */}
+      <img
+        src={graphic4}
+        alt=""
+        className="absolute top-4 left-4 w-[90px] pointer-events-none"
+        style={{ opacity: 0.75, zIndex: 1 }}
+      />
+
       <div className="flex flex-col items-center min-h-screen px-6 py-12 screen-enter relative z-10">
         <div className="flex flex-col items-center">
           <span className="font-wordmark text-[22px] text-foreground/50">VELA</span>

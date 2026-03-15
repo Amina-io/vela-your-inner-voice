@@ -56,6 +56,14 @@ const PromiseScreen: React.FC = () => {
         <Button variant="vela-primary" onClick={() => navigate("/name")}>
           Let's build yours
         </Button>
+
+        {/* Flower + butterflies collage - bottom left, above CTA */}
+        <img
+          src={graphic5}
+          alt=""
+          className="absolute bottom-24 left-4 w-[100px] pointer-events-none"
+          style={{ opacity: 0.8, zIndex: 1 }}
+        />
       </div>
     </MobileShell>
   );

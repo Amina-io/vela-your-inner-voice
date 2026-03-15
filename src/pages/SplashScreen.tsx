@@ -50,6 +50,14 @@ const SplashScreen: React.FC = () => {
         style={{ opacity: 0.85, zIndex: 1, top: '62%' }}
       />
 
+      {/* Shell collage - bottom left, above Begin button */}
+      <img
+        src={graphic2}
+        alt=""
+        className="absolute bottom-24 left-4 w-[90px] pointer-events-none"
+        style={{ opacity: 0.8, zIndex: 1 }}
+      />
+
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-end pb-12 px-6 z-10">
         <div className="flex flex-col items-center mb-auto mt-[55%]">

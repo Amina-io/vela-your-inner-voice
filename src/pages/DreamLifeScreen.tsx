@@ -46,6 +46,14 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName: propName }
       <AmbientBlobs />
       <BotanicalSprig className="absolute bottom-20 left-4 w-14 h-20 text-vela-dusty-rose/[0.35]" />
 
+      {/* Swan collage - top right corner */}
+      <img
+        src={graphic7}
+        alt=""
+        className="absolute top-4 right-4 w-[100px] pointer-events-none"
+        style={{ opacity: 0.75, zIndex: 1 }}
+      />
+
       <div className="flex flex-col min-h-screen px-6 py-12 screen-enter relative z-10">
         {/* Progress dots */}
         <div className="flex gap-2 justify-center">
