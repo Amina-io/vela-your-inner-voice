@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { ConstellationStars, DarkBlob } from "@/components/vela/Decoratives";
+import graphic2 from "@/assets/graphic-2.png";
 
 const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: propName }) => {
   const navigate = useNavigate();
