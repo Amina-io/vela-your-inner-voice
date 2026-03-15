@@ -78,6 +78,14 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: pr
       <div className="absolute bottom-0 left-0 w-full h-[2px] bg-foreground/5">
         <div className="h-full bg-gradient-to-r from-vela-dusty-rose to-vela-amber animate-progress-fill" />
       </div>
+
+      {/* Shell + stars collage - bottom right */}
+      <img
+        src={graphic2}
+        alt=""
+        className="absolute bottom-8 right-4 w-[120px] pointer-events-none"
+        style={{ opacity: 0.6, zIndex: 1 }}
+      />
     </MobileShell>
   );
 };

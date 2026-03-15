@@ -41,6 +41,14 @@ const SplashScreen: React.FC = () => {
       <GoldStar className="absolute top-16 right-16 text-accent" size={6} />
       <GoldStar className="absolute top-28 left-8 text-accent" size={7} />
 
+      {/* Swan collage - bottom right, behind button */}
+      <img
+        src={graphic7}
+        alt=""
+        className="absolute -bottom-8 -right-12 w-[180px] pointer-events-none"
+        style={{ opacity: 0.85, zIndex: 1 }}
+      />
+
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-end pb-12 px-6 z-10">
         <div className="flex flex-col items-center mb-auto mt-[55%]">

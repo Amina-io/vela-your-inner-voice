@@ -58,6 +58,14 @@ const NameScreen: React.FC<NameScreenProps> = ({ onNameSet }) => {
         >
           Continue
         </Button>
+
+        {/* Flower + butterflies collage - bottom center, above button */}
+        <img
+          src={graphic5}
+          alt=""
+          className="absolute bottom-[100px] left-1/2 -translate-x-1/2 w-[160px] pointer-events-none"
+          style={{ opacity: 0.8, zIndex: 1 }}
+        />
       </div>
     </MobileShell>
   );

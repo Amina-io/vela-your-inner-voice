@@ -319,6 +319,14 @@ const VoiceRecordingScreen: React.FC = () => {
                 ~60 seconds
               </span>
             </div>
+
+            {/* Flower + butterflies collage - bottom left */}
+            <img
+              src={graphic5}
+              alt=""
+              className="absolute -bottom-10 -left-8 w-[150px] pointer-events-none"
+              style={{ opacity: 0.75, zIndex: 1 }}
+            />
           </div>
         )}
 
