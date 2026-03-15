@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { CrescentMoon, DarkBlob, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
+import graphic7 from "@/assets/graphic-7.png";
 
 const SplashScreen: React.FC = () => {
   const navigate = useNavigate();
