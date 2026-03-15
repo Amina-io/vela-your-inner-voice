@@ -4,6 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import graphic1 from "@/assets/graphic-1.png";
+import graphic7 from "@/assets/graphic-7.png";
 
 const promptChips = [
   "How do you feel when you wake up?",
