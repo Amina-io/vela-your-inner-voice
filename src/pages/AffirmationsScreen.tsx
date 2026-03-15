@@ -4,6 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import graphic5 from "@/assets/graphic-5.png";
 
 const AffirmationsScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -131,6 +132,14 @@ const AffirmationsScreen: React.FC = () => {
   return (
     <MobileShell className="bg-background bg-ambient">
       <AmbientBlobs />
+
+      {/* Flower + butterflies collage - top right, decorative */}
+      <img
+        src={graphic5}
+        alt=""
+        className="absolute top-16 right-4 w-[100px] pointer-events-none"
+        style={{ opacity: 0.75, zIndex: 1 }}
+      />
 
       <GoldStar className="absolute top-20 right-10 text-accent z-10" size={7} />
       <GoldStar className="absolute top-48 left-6 text-accent z-10" size={6} />

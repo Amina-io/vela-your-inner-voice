@@ -4,7 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { WaveformBars, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import graphic5 from "@/assets/graphic-5.png";
+import graphic8 from "@/assets/graphic-8.png";
 
 const READING_SCRIPT = "I am exactly where I need to be. My voice is powerful. My words create my world. I wake up clear and ready. I trust myself completely. Money flows to me easily. I am confident and magnetic. My body is healthy and strong. I attract what I desire. I am becoming more myself every day. The life I want is already mine. I speak it into being. I allow good things. I am open. I receive with ease. I am focused. I am worthy. I am enough. Everything is working out for me. I am here. I am ready. I am that I am.";
 const SCRIPT_WORDS = READING_SCRIPT.split(/\s+/);
@@ -320,11 +320,11 @@ const VoiceRecordingScreen: React.FC = () => {
               </span>
             </div>
 
-            {/* Flower + butterflies collage - bottom left */}
+            {/* Playing card cat collage - bottom right, above mic button */}
             <img
-              src={graphic5}
+              src={graphic8}
               alt=""
-              className="absolute -bottom-10 -left-8 w-[150px] pointer-events-none"
+              className="absolute bottom-[140px] right-4 w-[120px] pointer-events-none"
               style={{ opacity: 0.75, zIndex: 1 }}
             />
           </div>

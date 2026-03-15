@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
+import graphic3 from "@/assets/graphic-3.png";
 
 const CreateAccountScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -90,6 +91,14 @@ const CreateAccountScreen: React.FC = () => {
         <button onClick={() => navigate("/choose-track", { state: navState })} className="font-body font-light text-[13px] text-primary text-center mt-4 active:opacity-70" style={{ transition: 'opacity 200ms ease-out' }}>
           Already have an account? Sign in
         </button>
+
+        {/* Giraffe + flowers collage - bottom left */}
+        <img
+          src={graphic3}
+          alt=""
+          className="absolute bottom-20 left-4 w-[110px] pointer-events-none"
+          style={{ opacity: 0.75, zIndex: 1 }}
+        />
       </div>
     </MobileShell>
   );

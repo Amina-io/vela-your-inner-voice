@@ -51,10 +51,13 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: pr
       <ConstellationStars className="absolute top-12 right-6 w-14 h-14 text-accent/[0.35]" />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 z-10">
-        {/* Breathing circle */}
-        <div className="w-20 h-20 rounded-full border-[1.5px] border-accent/40 animate-breathe flex items-center justify-center mb-10">
-          <div className="w-3 h-3 rounded-full bg-accent/30" />
-        </div>
+        {/* Shell + stars collage - centered at top, decorative above loading text */}
+        <img
+          src={graphic2}
+          alt=""
+          className="w-[130px] pointer-events-none mb-6"
+          style={{ opacity: 0.8 }}
+        />
 
         {/* Copy sequence */}
         <div className="flex flex-col items-center gap-3">
@@ -78,14 +81,6 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: pr
       <div className="absolute bottom-0 left-0 w-full h-[2px] bg-foreground/5">
         <div className="h-full bg-gradient-to-r from-vela-dusty-rose to-vela-amber animate-progress-fill" />
       </div>
-
-      {/* Shell + stars collage - bottom right */}
-      <img
-        src={graphic2}
-        alt=""
-        className="absolute bottom-8 right-4 w-[120px] pointer-events-none"
-        style={{ opacity: 0.6, zIndex: 1 }}
-      />
     </MobileShell>
   );
 };

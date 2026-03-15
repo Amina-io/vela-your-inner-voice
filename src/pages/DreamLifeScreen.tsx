@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
+import graphic1 from "@/assets/graphic-1.png";
 
 const promptChips = [
   "How do you feel when you wake up?",
@@ -116,6 +117,14 @@ const DreamLifeScreen: React.FC<{ userName?: string }> = ({ userName: propName }
             These are my dreams →
           </Button>
         </div>
+
+        {/* Cat + star + flower collage - bottom left, above CTA */}
+        <img
+          src={graphic1}
+          alt=""
+          className="absolute bottom-[100px] left-4 w-[110px] pointer-events-none"
+          style={{ opacity: 0.8, zIndex: 1 }}
+        />
       </div>
     </MobileShell>
   );
