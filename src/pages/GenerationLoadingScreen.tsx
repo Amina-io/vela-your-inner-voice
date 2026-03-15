@@ -75,6 +75,14 @@ const GenerationLoadingScreen: React.FC<{ userName?: string }> = ({ userName: pr
             </p>
           ))}
         </div>
+
+        {/* Shell + stars collage - bottom right, decorative */}
+        <img
+          src={graphic2}
+          alt=""
+          className="absolute bottom-16 right-4 w-[120px] pointer-events-none"
+          style={{ opacity: 0.6, zIndex: 1 }}
+        />
       </div>
 
       {/* Progress line */}

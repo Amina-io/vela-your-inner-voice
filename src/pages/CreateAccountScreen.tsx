@@ -4,6 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import graphic3 from "@/assets/graphic-3.png";
+import graphic6 from "@/assets/graphic-6.png";
 
 const CreateAccountScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -30,6 +31,14 @@ const CreateAccountScreen: React.FC = () => {
     <MobileShell className="bg-background">
       <AmbientBlobs />
       <BotanicalSprig className="absolute bottom-16 right-4 w-12 h-16 text-vela-dusty-rose/[0.35]" />
+
+      {/* Grapefruit collage - top right, decorative */}
+      <img
+        src={graphic6}
+        alt=""
+        className="absolute top-4 right-4 w-[90px] pointer-events-none"
+        style={{ opacity: 0.8, zIndex: 1 }}
+      />
 
       <div className="flex flex-col items-center min-h-screen px-6 py-12 screen-enter relative z-10">
         <div className="flex flex-col items-center">

@@ -4,6 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { CrescentMoon, DarkBlob, GoldStar } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import graphic7 from "@/assets/graphic-7.png";
+import graphic2 from "@/assets/graphic-2.png";
 
 const SplashScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -47,6 +48,14 @@ const SplashScreen: React.FC = () => {
         alt=""
         className="absolute right-4 w-[160px] pointer-events-none"
         style={{ opacity: 0.85, zIndex: 1, top: '62%' }}
+      />
+
+      {/* Shell collage - bottom left, above Begin button */}
+      <img
+        src={graphic2}
+        alt=""
+        className="absolute bottom-24 left-4 w-[90px] pointer-events-none"
+        style={{ opacity: 0.8, zIndex: 1 }}
       />
 
       {/* Content */}

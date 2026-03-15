@@ -4,6 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { BotanicalSprig, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import graphic5 from "@/assets/graphic-5.png";
+import graphic4 from "@/assets/graphic-4.png";
 
 interface NameScreenProps {
   onNameSet?: (name: string) => void;
@@ -24,6 +25,14 @@ const NameScreen: React.FC<NameScreenProps> = ({ onNameSet }) => {
     <MobileShell className="bg-background">
       <AmbientBlobs />
       <BotanicalSprig className="absolute bottom-20 left-4 w-14 h-20 text-vela-dusty-rose/[0.35]" />
+
+      {/* Cat face + pink flower collage - top left, decorative */}
+      <img
+        src={graphic4}
+        alt=""
+        className="absolute top-4 left-4 w-[90px] pointer-events-none"
+        style={{ opacity: 0.75, zIndex: 1 }}
+      />
 
       <div className="flex flex-col items-center min-h-screen px-6 py-12 screen-enter relative z-10">
         <div className="flex flex-col items-center">

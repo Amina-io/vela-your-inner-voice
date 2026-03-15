@@ -4,6 +4,7 @@ import { MobileShell } from "@/components/vela/MobileShell";
 import { AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import graphic2 from "@/assets/graphic-2.png";
+import graphic5 from "@/assets/graphic-5.png";
 
 const PromiseScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -55,6 +56,14 @@ const PromiseScreen: React.FC = () => {
         <Button variant="vela-primary" onClick={() => navigate("/name")}>
           Let's build yours
         </Button>
+
+        {/* Flower + butterflies collage - bottom left, above CTA */}
+        <img
+          src={graphic5}
+          alt=""
+          className="absolute bottom-24 left-4 w-[100px] pointer-events-none"
+          style={{ opacity: 0.8, zIndex: 1 }}
+        />
       </div>
     </MobileShell>
   );

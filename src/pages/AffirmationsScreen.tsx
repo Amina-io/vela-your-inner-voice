@@ -5,6 +5,7 @@ import { BotanicalSprig, AmbientBlobs, GoldStar } from "@/components/vela/Decora
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import graphic5 from "@/assets/graphic-5.png";
+import graphic8 from "@/assets/graphic-8.png";
 
 const AffirmationsScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -223,6 +224,14 @@ const AffirmationsScreen: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Playing card cat collage - bottom left, above CTA button */}
+      <img
+        src={graphic8}
+        alt=""
+        className="absolute bottom-28 left-4 w-[100px] pointer-events-none"
+        style={{ opacity: 0.75, zIndex: 1 }}
+      />
 
       <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[375px] p-6 pt-3 bg-gradient-to-t from-background via-background to-transparent z-20">
         <Button variant="vela-primary" onClick={() => navigate("/voice", { state: { userName, suggestedHz } })}>

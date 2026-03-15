@@ -5,6 +5,7 @@ import { WaveformBars, AmbientBlobs } from "@/components/vela/Decoratives";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import graphic6 from "@/assets/graphic-6.png";
+import graphic3 from "@/assets/graphic-3.png";
 
 const tracks = [
   { name: "Deep Space", hz: 432, mood: "For sleep and surrender" },
@@ -104,6 +105,14 @@ const ChooseTrackScreen: React.FC = () => {
             This is my frequency →
           </Button>
         </div>
+
+        {/* Giraffe + flowers collage - bottom left, above CTA */}
+        <img
+          src={graphic3}
+          alt=""
+          className="absolute bottom-24 left-4 w-[100px] pointer-events-none"
+          style={{ opacity: 0.75, zIndex: 1 }}
+        />
       </div>
     </MobileShell>
   );
