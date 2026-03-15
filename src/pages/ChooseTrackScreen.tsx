@@ -38,6 +38,15 @@ const ChooseTrackScreen: React.FC = () => {
   return (
     <MobileShell className="bg-background bg-ambient">
       <AmbientBlobs />
+
+      {/* Grapefruit collage - top left, decorative */}
+      <img
+        src={graphic6}
+        alt=""
+        className="absolute top-4 left-4 w-[90px] pointer-events-none"
+        style={{ opacity: 0.8, zIndex: 1 }}
+      />
+
       <div className="flex flex-col min-h-screen px-6 py-12 screen-enter relative z-10">
         <h2 className="font-handwritten text-[36px] text-foreground text-center">Choose your frequency, {userName}.</h2>
         <p className="font-body font-light text-sm text-foreground/55 text-center mt-2 max-w-[300px] mx-auto">
