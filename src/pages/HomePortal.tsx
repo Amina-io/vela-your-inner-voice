@@ -159,6 +159,14 @@ const HomePortal: React.FC<HomePortalProps> = ({ userName: propName, returning =
         </div>
       )}
 
+      {/* Cat face collage - bottom right, above navigation bar */}
+      <img
+        src={graphic4}
+        alt=""
+        className="absolute bottom-24 right-4 w-[90px] pointer-events-none"
+        style={{ opacity: 0.6, zIndex: 0 }}
+      />
+
       <BottomNav active="home" />
     </MobileShell>
   );

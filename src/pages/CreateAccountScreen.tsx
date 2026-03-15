@@ -32,6 +32,14 @@ const CreateAccountScreen: React.FC = () => {
       <AmbientBlobs />
       <BotanicalSprig className="absolute bottom-16 right-4 w-12 h-16 text-vela-dusty-rose/[0.35]" />
 
+      {/* Grapefruit collage - top right, decorative */}
+      <img
+        src={graphic6}
+        alt=""
+        className="absolute top-4 right-4 w-[90px] pointer-events-none"
+        style={{ opacity: 0.8, zIndex: 1 }}
+      />
+
       <div className="flex flex-col items-center min-h-screen px-6 py-12 screen-enter relative z-10">
         <div className="flex flex-col items-center">
           <span className="font-wordmark text-[22px] text-foreground/50">VELA</span>

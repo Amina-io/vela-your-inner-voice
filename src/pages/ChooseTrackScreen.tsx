@@ -105,6 +105,14 @@ const ChooseTrackScreen: React.FC = () => {
             This is my frequency →
           </Button>
         </div>
+
+        {/* Giraffe + flowers collage - bottom left, above CTA */}
+        <img
+          src={graphic3}
+          alt=""
+          className="absolute bottom-24 left-4 w-[100px] pointer-events-none"
+          style={{ opacity: 0.75, zIndex: 1 }}
+        />
       </div>
     </MobileShell>
   );
